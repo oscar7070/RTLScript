@@ -1,4 +1,4 @@
-# FarsiType
+# RTLType
 a simple library for Farsi/Arabic strings written in C++
 
 ## Screenshots (using [ImGui](https://github.com/ocornut/imgui) for rendering)
