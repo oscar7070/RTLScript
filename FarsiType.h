@@ -1,3 +1,5 @@
+//RTL type is my fork for FarsiType
+
 #pragma once
 
 #include <iostream>
@@ -106,7 +108,7 @@ enum FarsiArabicAlphabets_Forms_
     faa_Final,
 };
 
-extern const std::vector<std::vector<std::string>> fa_AlphabetsAllForms;
+extern const std::vector<std::vector<std::string>> FaAr_AlphabetsAllForms;
 
 namespace FarsiType
 {
@@ -114,7 +116,7 @@ namespace FarsiType
     /// <param name="fa_character">Character you want to check its place.</param>
     /// <param name="prevFAChar">Previous character, to check if its connected to fa_character or not.</param>
     /// <param name="nextFAChar">Next character, to check if its connected to fa_character or not.</param>
-    /// <returns>Returns an int in type of a char. Possible values: 0- no connection, 1- conntected from behind, 2- connected from front, 3- connected from both side.</returns>
+    /// <returns>Returns an int in type of a char. Possible values: 0- no connection, 1- connected from behind, 2- connected from front, 3- connected from both side.</returns>
     unsigned char GetFACharPlace(const std::string &fa_character, const std::string &prevFAChar, const std::string &nextFAChar);
 
     /// <summary>Check if given character is a Farsi/Arabic letter in beginner form or not.</summary>
