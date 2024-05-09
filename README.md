@@ -1,5 +1,5 @@
 # RTLType
-a simple library for Farsi/Arabic strings written in C++
+a simple library for Farsi/Arabic strings written in C++20
 
 ## Screenshots (using [ImGui](https://github.com/ocornut/imgui) for rendering)
 Correct Form:  
