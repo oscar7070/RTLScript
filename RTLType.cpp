@@ -1,7 +1,6 @@
 // RTL type is my fork for FarsiType
 #include "RTLType.h"
 #include <cstring>
-#include <ExtremeEngineCPP/Debug.h>
 #include <sstream>
 
 const std::vector<std::vector<std::string>> FaAr_AlphabetsAllForms =
