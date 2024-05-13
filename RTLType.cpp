@@ -1,6 +1,8 @@
-//RTL type is my fork for FarsiType
-
+// RTL type is my fork for FarsiType
 #include "RTLType.h"
+#include <cstring>
+#include <ExtremeEngineCPP/Debug.h>
+#include <sstream>
 
 const std::vector<std::vector<std::string>> FaAr_AlphabetsAllForms =
 {
@@ -51,7 +53,7 @@ const std::vector<std::vector<std::string>> FaAr_AlphabetsAllForms =
     {"\ufef7", "\ufef7", "\ufef7", "\ufef8", "\ufef8"}, // faa_LAAM_ALEF_HAMZA_ABOVE, // لأ
 };
 
-unsigned char FarsiType::GetFACharPlace(const std::string &fa_character, const std::string &prevFAChar, const std::string &nextFAChar)
+unsigned char RTLType::GetFACharPlace(const std::string& fa_character, const std::string& prevFAChar, const std::string& nextFAChar)
 {
     bool in_previous = false;
     bool in_next = false;
@@ -73,7 +75,7 @@ unsigned char FarsiType::GetFACharPlace(const std::string &fa_character, const s
         return 0;
 }
 
-bool FarsiType::IsFACharBeginner(const std::string &fa_character)
+bool RTLType::IsFACharBeginner(const std::string& fa_character)
 {
     return
         fa_character == FaAr_AlphabetsAllForms[faa_ALEF_HAMZEH_ABOVE][faa_Unicode] ||
@@ -93,7 +95,7 @@ bool FarsiType::IsFACharBeginner(const std::string &fa_character)
         ;
 }
 
-unsigned char FarsiType::FindFACharIndex(const std::string &fa_character)
+unsigned char RTLType::FindFACharIndex(const std::string& fa_character)
 {
     for (int i = 0; i < FaAr_AlphabetsAllForms.size(); ++i)
     {
@@ -109,7 +111,7 @@ unsigned char FarsiType::FindFACharIndex(const std::string &fa_character)
     return FaAr_AlphabetsAllForms.size();
 }
 
-bool FarsiType::IsFAChar(const std::string &fa_character)
+bool RTLType::IsFAChar(const std::string& fa_character)
 {
     for (auto const& fachar : FaAr_AlphabetsAllForms)
     {
@@ -124,59 +126,82 @@ bool FarsiType::IsFAChar(const std::string &fa_character)
     return false;
 }
 
-std::vector<std::string> FarsiType::ReverseFAText(const std::string &str)
+int RTLType::StringToCodepoint(const std::string& str) {
+    if (str.empty()) return -1;
+
+    unsigned char u0 = str[0];
+    if (u0 >= 0 && u0 <= 127) return u0; // ASCII
+
+    if ((u0 & 0xE0) == 0xC0) {
+        unsigned char u1 = str[1] & 0x3F;
+        return ((u0 & 0x1F) << 6) | u1;
+    }
+    if ((u0 & 0xF0) == 0xE0) {
+        unsigned char u1 = str[1] & 0x3F;
+        unsigned char u2 = str[2] & 0x3F;
+        return ((u0 & 0x0F) << 12) | (u1 << 6) | u2;
+    }
+    if ((u0 & 0xF8) == 0xF0) {
+        unsigned char u1 = str[1] & 0x3F;
+        unsigned char u2 = str[2] & 0x3F;
+        unsigned char u3 = str[3] & 0x3F;
+        return ((u0 & 0x07) << 18) | (u1 << 12) | (u2 << 6) | u3;
+    }
+    return -1; // Error
+}
+
+bool RTLType::IsRTL(int codepoint)
+{
+    // Arabic (0600–06FF), Hebrew (0590–05FF), Farsi and etc.
+    return ((codepoint >= 0x0590 && codepoint <= 0x08FF) || (codepoint >= 0xFB1D && codepoint <= 0xFEFC));
+}
+
+std::vector<std::string> RTLType::ReverseFAText(const std::string& str)
 {
     std::vector<std::string> reversedStr;
-    std::vector<std::string> tempFarsiListStr;
 
-    for (int i = 0; i < str.size(); i++)
+    std::istringstream wif(str);
+    std::string line;
+
+    while (std::getline(wif, line))
     {
-        if (str[i] > ' ' && str[i] <= '~')
+        std::vector<std::string> temp;
+        bool rtl = false;
+        for (int j = 0; j < line.size(); j++)
         {
-            if (tempFarsiListStr.size() > 0)
+            int codepoint = StringToCodepoint(line.substr(j, 2));
+            if (IsRTL(codepoint) || rtl == true)
             {
-                reversedStr.insert(reversedStr.end(), tempFarsiListStr.begin(), tempFarsiListStr.end());
-                tempFarsiListStr.clear();
-            }
-            reversedStr.insert(reversedStr.end(), std::string() + str[i]);
-        }
-        else if (str[i] == ' ')
-        {
-            if (tempFarsiListStr.size() > 0)
-            {
-                if (i + 1 < str.size() && str[i + 1] > '~')
+                rtl = true;
+                if (std::isspace(line[j]))
                 {
-                    tempFarsiListStr.insert(tempFarsiListStr.begin(), std::string() + str[i]);
+                    temp.insert(temp.begin(), std::string() + " ");
                 }
                 else
                 {
-                    tempFarsiListStr.insert(tempFarsiListStr.end(), std::string() + str[i]);
+                    temp.insert(temp.begin(), std::string() + line[j] + line[j + 1]);
+                    j++;
                 }
             }
             else
             {
-                reversedStr.insert(reversedStr.end(), std::string() + str[i]);
+                reversedStr.insert(reversedStr.end(), std::string() + line[j]);
             }
-        }
-        else
-        {
-            tempFarsiListStr.insert(tempFarsiListStr.begin(), std::string() + str[i] + str[i + 1]);
-            i++;
-        }
 
-        if (i == str.size() - 1)
-        {
-            if (tempFarsiListStr.size() > 0)
+            if (j == line.size() - 1)
             {
-                reversedStr.insert(reversedStr.end(), tempFarsiListStr.begin(), tempFarsiListStr.end());
-                tempFarsiListStr.clear();
+                if (temp.size() > 0)
+                {
+                    reversedStr.insert(reversedStr.end(), temp.begin(), temp.end());
+                    temp.clear();
+                }
             }
         }
     }
     return reversedStr;
 }
 
-std::string FarsiType::GetFACharGlyph(const std::string &fa_character, const std::string &prevFAChar, const std::string &nextFAChar)
+std::string RTLType::GetFACharGlyph(const std::string& fa_character, const std::string& prevFAChar, const std::string& nextFAChar)
 {
     if (!IsFAChar(fa_character)) return fa_character;
 
@@ -185,8 +210,9 @@ std::string FarsiType::GetFACharGlyph(const std::string &fa_character, const std
     facharPlace = GetFACharPlace(fa_character, prevFAChar, nextFAChar);
     facharIndex = FindFACharIndex(fa_character);
 
-    if (facharPlace == 3)
+    switch (facharPlace)
     {
+    case 3:
         if (IsFACharBeginner(prevFAChar))
         {
             if (FaAr_AlphabetsAllForms[facharIndex][faa_Beginner] == FaAr_AlphabetsAllForms[faa_YEH][faa_Beginner])
@@ -203,17 +229,13 @@ std::string FarsiType::GetFACharGlyph(const std::string &fa_character, const std
             }
             return FaAr_AlphabetsAllForms[facharIndex][faa_Medium];
         }
-    }
-    else if (facharPlace == 2)
-    {
+    case 2:
         if (FaAr_AlphabetsAllForms[facharIndex][faa_Beginner] == FaAr_AlphabetsAllForms[faa_YEH][faa_Beginner])
         {
             return FaAr_AlphabetsAllForms[faa_ARABIC_YEH][faa_Beginner];
         }
         return FaAr_AlphabetsAllForms[facharIndex][faa_Beginner];
-    }
-    else if (facharPlace == 1)
-    {
+    case 1:
         if (IsFACharBeginner(prevFAChar))
         {
             if (FaAr_AlphabetsAllForms[facharIndex][faa_Isolated] == FaAr_AlphabetsAllForms[faa_YEH][faa_Isolated])
@@ -230,9 +252,7 @@ std::string FarsiType::GetFACharGlyph(const std::string &fa_character, const std
             }
             return FaAr_AlphabetsAllForms[facharIndex][faa_Final];
         }
-    }
-    else
-    {
+    default:
         if (FaAr_AlphabetsAllForms[facharIndex][faa_Isolated] == FaAr_AlphabetsAllForms[faa_YEH][faa_Isolated])
         {
             return FaAr_AlphabetsAllForms[faa_ALEF_MAKSURA][faa_Isolated];
@@ -241,7 +261,7 @@ std::string FarsiType::GetFACharGlyph(const std::string &fa_character, const std
     }
 }
 
-std::string FarsiType::ConvertToFAGlyphs(const std::string &text)
+std::string RTLType::ConvertToFAGlyphs(const std::string& text)
 {
     std::vector<std::string> reversed_text = ReverseFAText(text);
     std::string convertedText;
