@@ -22,4 +22,4 @@ If you found any issue or have any suggestion, feel free to create an issue for 
 Also, feel free to contribute and make this better for everyone :).  
 
 ## Known bugs
-- Numbers are reversed, so you should write 19 instead of 91. should add a check for numbers.
+- They exists.
