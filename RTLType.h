@@ -1,7 +1,6 @@
 // RTL type is my fork for FarsiType
 #pragma once
 
-#include <iostream>
 #include <string>
 #include <vector>
 
@@ -32,82 +31,108 @@ enum FarsiArabicTashkeel_ArabicNames_
 
 enum FarsiArabicAlphabets_
 {
-    faa_ALEF_HAMZEH_ABOVE, // أ
-    faa_ALEF, // ا
-    faa_ALEF_MAD_ABOVE, // آ
-    faa_HAMZEH, // ء
-    faa_VAAV_HAMZEH_ABOVE, // ؤ
-    faa_ALEF_HAMZEH_BELOW, // إ
-    faa_YEH_HAMZEH_ABOVE, // ئ
-    faa_BEH, // ب
-    faa_PEH, // پ
-    faa_TEH, // ت
-    faa_TEH_TANIS, // ة
-    faa_SEH, // ث
-    faa_JEEM, // ج
-    faa_CHEH, // چ
-    faa_HEH_JEEMY, // ح
-    faa_KHEH, // خ
-    faa_DAAL, // د
-    faa_ZAAL, // ذ
-    faa_REH, // ر
-    faa_ZEH, // ز
-    faa_JEH, // ژ
-    faa_SEEN, // س
-    faa_SHEEN, // ش
-    faa_SAAD, // ص
-    faa_ZAAD, // ض
-    faa_TAAH, // ط
-    faa_ZAAH, // ظ
-    faa_AIN, // ع
-    faa_GHAIN, // غ
-    faa_FEH, // ف
-    faa_QAAF, // ق
-    faa_KAAF, // ک
-    faa_KAAF_NO_HEAD, // ك
-    faa_GAAF, // گ
-    faa_LAAM, // ل
-    faa_MEEM, // م
-    faa_NOON, // ن
-    faa_VAAV, // و
-    faa_HEH, // ه
-    faa_YEH, // ی
-    faa_ARABIC_YEH, // ي
-    faa_ALEF_MAKSURA, // ى
-    faa_TATWEEL, // ـ
-    faa_LAAM_ALEF, // لا
-    faa_LAAM_ALEF_HAMZA_ABOVE, // لأ
+    faAr_ALEF_HAMZEH_ABOVE, // أ
+    faAr_ALEF, // ا
+    faAr_ALEF_MAD_ABOVE, // آ
+    faAr_HAMZEH, // ء
+    faAr_VAAV_HAMZEH_ABOVE, // ؤ
+    faAr_ALEF_HAMZEH_BELOW, // إ
+    faAr_YEH_HAMZEH_ABOVE, // ئ
+    faAr_BEH, // ب
+    faAr_PEH, // پ
+    faAr_TEH, // ت
+    faAr_TEH_TANIS, // ة
+    faAr_SEH, // ث
+    faAr_JEEM, // ج
+    faAr_CHEH, // چ
+    faAr_HEH_JEEMY, // ح
+    faAr_KHEH, // خ
+    faAr_DAAL, // د
+    faAr_ZAAL, // ذ
+    faAr_REH, // ر
+    faAr_ZEH, // ز
+    faAr_JEH, // ژ
+    faAr_SEEN, // س
+    faAr_SHEEN, // ش
+    faAr_SAAD, // ص
+    faAr_ZAAD, // ض
+    faAr_TAAH, // ط
+    faAr_ZAAH, // ظ
+    faAr_AIN, // ع
+    faAr_GHAIN, // غ
+    faAr_FEH, // ف
+    faAr_QAAF, // ق
+    faAr_KAAF, // ک
+    faAr_KAAF_NO_HEAD, // ك
+    faAr_GAAF, // گ
+    faAr_LAAM, // ل
+    faAr_MEEM, // م
+    faAr_NOON, // ن
+    faAr_VAAV, // و
+    faAr_HEH, // ه
+    faAr_YEH, // ی
+    faAr_ARABIC_YEH, // ي
+    faAr_ALEF_MAKSURA, // ى
+    faAr_TATWEEL, // ـ
+    faAr_LAAM_ALEF, // لا
+    faAr_LAAM_ALEF_HAMZA_ABOVE, // لأ
 };
 
 enum FarsiArabicAlphabets_ArabicNames_
 {
-    faa_ALEF_HAMZA_ABOVE = faa_ALEF_HAMZEH_ABOVE,
-    faa_ALEF_MADDA_ABOVE = faa_ALEF_MAD_ABOVE,
-    faa_HAMZA = faa_HAMZEH,
-    faa_WAAW_HAMZA_ABOVE = faa_VAAV_HAMZEH_ABOVE,
-    faa_ALEF_HAMZA_BELOW = faa_ALEF_HAMZEH_BELOW,
-    faa_YEH_HAMZA_ABOVE = faa_YEH_HAMZEH_ABOVE,
-    faa_TEH_MARBUTA = faa_TEH_TANIS,
-    faa_THEH = faa_SEH,
-    faa_HAH = faa_HEH_JEEMY,
-    faa_THAAL = faa_ZAAL,
-    faa_ZAIN = faa_ZEH,
-    faa_DAAD = faa_ZAAD,
-    faa_KAAF_ARABIC = faa_KAAF_NO_HEAD,
-    faa_KEHEH = faa_KAAF,
-    faa_WAAW = faa_VAAV
+    faAr_ALEF_HAMZA_ABOVE = faAr_ALEF_HAMZEH_ABOVE,
+    faAr_ALEF_MADDA_ABOVE = faAr_ALEF_MAD_ABOVE,
+    faAr_HAMZA = faAr_HAMZEH,
+    faAr_WAAW_HAMZA_ABOVE = faAr_VAAV_HAMZEH_ABOVE,
+    faAr_ALEF_HAMZA_BELOW = faAr_ALEF_HAMZEH_BELOW,
+    faAr_YEH_HAMZA_ABOVE = faAr_YEH_HAMZEH_ABOVE,
+    faAr_TEH_MARBUTA = faAr_TEH_TANIS,
+    faAr_THEH = faAr_SEH,
+    faAr_HAH = faAr_HEH_JEEMY,
+    faAr_THAAL = faAr_ZAAL,
+    faAr_ZAIN = faAr_ZEH,
+    faAr_DAAD = faAr_ZAAD,
+    faAr_KAAF_ARABIC = faAr_KAAF_NO_HEAD,
+    faAr_KEHEH = faAr_KAAF,
+    faAr_WAAW = faAr_VAAV
 };
 
 enum FarsiArabicAlphabets_Forms_
 {
-    faa_Unicode,
-    faa_Isolated,
-    faa_Beginner,
-    faa_Medium,
-    faa_Final,
+    faAr_Unicode,
+    faAr_Isolated,
+    faAr_Beginner,
+    faAr_Medium,
+    faAr_Final,
 };
 
 extern const std::vector<std::vector<std::string>> FaAr_AlphabetsAllForms;
+
+enum HebrewAlphabets_
+{
+    he_ALEF, // א
+    he_BET, // ב
+    he_GIMEL, // ג
+    he_DALET, // ד
+    he_HEI, // ה
+    he_VAV, // ו
+    he_ZAYIN, // ז
+    he_CHET, // ח
+    he_TET, // ט
+    he_YOD, // י
+    he_KAF, // כ
+    he_LAMED, // ל
+    he_MEM, // מ
+    he_NUN, // נ
+    he_SAMEKH, // ס
+    he_AYIN, // ע
+    he_PEI, // פ
+    he_TSADIK, // צ
+    he_KUF, // ק
+    he_RAYSH, // ר
+    he_SHIN, // ש
+    he_TAV, // ת
+};
 
 namespace RTLType
 {
