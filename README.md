@@ -23,7 +23,9 @@ Also, feel free to contribute and make this better for everyone :).
 
 ## How to use it?
 RTLType is very easy to use just call:
+```
 ConvertToFixed("أنا أحب الأناناس");
+```
 
 ## Known bugs
 - They exists.
