@@ -169,7 +169,7 @@ namespace RTLType
     /// <summary>Reverses Farsi/Arabic string and returns a vector of std::strings, each of them containing Farsi/Arabic letters with different byte counts.</summary>
     /// <param name="str">Farsi/Arabic string.</param>
     /// <returns>Returns a vector of std::strings.</returns>
-    std::vector<std::string> ReverseFAText(const std::string& str);
+    std::vector<std::string> ReverseRTLText(const std::string& str);
 
     /// <summary>Get correct unicode of Farsi/Arabic letter depending on its position, previous, and next letters.</summary>
     /// <param name="fa_character">Character you want to check.</param>
@@ -181,5 +181,10 @@ namespace RTLType
     /// <summary>Converts a Farsi/Arabic string to a normal, fixed, not-reversed string for using it in you program :).</summary>
     /// <param name="text">Farsi/Arabic text.</param>
     /// <returns>Returns a std::string. Fixed Farsi/Arabic string</returns>
-    std::string ConvertToFAGlyphs(const std::string& text);
+    std::string ConvertToFixed(const std::string& text);
+
+    /// <summary>Converts a Farsi/Arabic string to a normal, fixed, not-reversed string for using it in you program :).</summary>
+    /// <param name="text">Farsi/Arabic text.</param>
+    /// <returns>Returns a const char*. Fixed Farsi/Arabic string</returns>
+    const char* ConvertToFixed(const char* text);
 };
