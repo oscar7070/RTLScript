@@ -154,7 +154,7 @@ bool RTLType::IsRTL(int codepoint)
     return ((codepoint >= 0x0590 && codepoint <= 0x08FF) || (codepoint >= 0xFB1D && codepoint <= 0xFEFC));
 }
 
-std::vector<std::string> RTLType::ReverseFAText(const std::string& str)
+std::vector<std::string> RTLType::ReverseRTLText(const std::string& str)
 {
     std::vector<std::string> reversedStr;
 
@@ -259,9 +259,9 @@ std::string RTLType::GetFACharGlyph(const std::string& fa_character, const std::
     }
 }
 
-std::string RTLType::ConvertToFAGlyphs(const std::string& text)
+std::string RTLType::ConvertToFixed(const std::string& text)
 {
-    std::vector<std::string> reversed_text = ReverseFAText(text);
+    std::vector<std::string> reversed_text = ReverseRTLText(text);
     std::string convertedText;
     std::string previousFaArChar, nextFaArChar;
 
@@ -297,4 +297,9 @@ std::string RTLType::ConvertToFAGlyphs(const std::string& text)
         convertedText.append(fa_glyph);
     }
     return convertedText;
+}
+
+const char* RTLType::ConvertToFixed(const char* text)
+{
+    return ConvertToFixed(std::string(text)).c_str();
 }
