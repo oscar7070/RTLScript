@@ -24,7 +24,7 @@ Also, feel free to contribute and make this better for everyone :).
 ## How to use it?
 RTLType is very easy to use just call:
 ```
-auto FixedArabicText = ConvertToFixed("أنا أحب الأناناس");
+auto fixedArabicText = ConvertToFixed("أنا أحب الأناناس");
 ```
 
 ## Known bugs
