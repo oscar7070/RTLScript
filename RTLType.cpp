@@ -166,8 +166,15 @@ std::vector<std::string> RTLType::ReverseRTLText(const std::string& str)
     std::istringstream wif(str);
     std::string line;
 
+    bool isFirstLine = true;
     while (std::getline(wif, line))
     {
+        if (!isFirstLine)
+        {
+            reversedStr.insert(reversedStr.end(), std::string() + "\n");
+        }
+        isFirstLine = false;
+
         std::vector<std::string> temp;
         bool rtl = false;
         for (int j = 0; j < line.size(); j++)
@@ -182,6 +189,10 @@ std::vector<std::string> RTLType::ReverseRTLText(const std::string& str)
                 if (isSpace)
                 {
                     temp.insert(temp.begin(), std::string() + " ");
+                }
+                else if (isPunctOrDigitOrSpace) // To fix a char of count 1. to fix this bug: !?
+                {
+                    temp.insert(temp.begin(), std::string() + line[j]);
                 }
                 else
                 {
@@ -198,15 +209,11 @@ std::vector<std::string> RTLType::ReverseRTLText(const std::string& str)
                 }
                 reversedStr.insert(reversedStr.end(), std::string() + line[j]);
             }
-
-            if (j == line.size() - 1)
-            {
-                if (temp.size() > 0)
-                {
-                    reversedStr.insert(reversedStr.end(), temp.begin(), temp.end());
-                    temp.clear();
-                }
-            }
+        }
+        if (temp.size() > 0)
+        {
+            reversedStr.insert(reversedStr.end(), temp.begin(), temp.end());
+            temp.clear();
         }
     }
     return reversedStr;
