@@ -57,9 +57,9 @@ unsigned char RTLType::GetFACharPlace(const std::string& fa_character, const std
     bool in_next = false;
     for (auto const& fachar : FaAr_AlphabetsAllForms)
     {
-        if (prevFAChar != "ISNOTFA" || fachar[faAr_Unicode] == prevFAChar)
+        if (prevFAChar != "NOTAR" || fachar[faAr_Unicode] == prevFAChar)
             in_previous = true;
-        if (nextFAChar != "ISNOTFA" || fachar[faAr_Unicode] == nextFAChar)
+        if (nextFAChar != "NOTAR" || fachar[faAr_Unicode] == nextFAChar)
             in_next = true;
     }
 
@@ -182,15 +182,17 @@ std::vector<std::string> RTLType::ReverseRTLText(const std::string& str)
             int codepoint = StringToCodepoint(line.substr(j, 2));
             bool isRTL = IsRTL(codepoint);
             bool isSpace = std::isspace(line[j]);
+            //bool isPunctOrDigit = IsPunctOrDigit(line[j]);
+            //bool isPunctOrDigitOrSpace = isPunctOrDigit || isSpace;
             bool isPunctOrDigitOrSpace = IsPunctOrDigit(line[j]) || isSpace;
             if (isRTL || rtl == true && isPunctOrDigitOrSpace)
             {
                 rtl = true;
-                if (isSpace)
-                {
-                    temp.insert(temp.begin(), std::string() + " ");
-                }
-                else if (isPunctOrDigitOrSpace) // To fix a char of count 1. to fix this bug: !?
+                //if (isSpace)
+                //{
+                //    temp.insert(temp.begin(), std::string() + " ");
+                //}
+                if (isPunctOrDigitOrSpace) // To fix a char of count 1. to fix this bug: !?
                 {
                     temp.insert(temp.begin(), std::string() + line[j]);
                 }
@@ -285,22 +287,21 @@ std::string RTLType::ConvertToFixed(const std::string& text)
     std::string convertedText;
     std::string previousFaArChar, nextFaArChar;
 
-    for (int i = 0; i < reversed_text.size(); ++i)
+    for (int i = 0; i < reversed_text.size(); i++)
     {
-
         if (!IsFAChar(reversed_text[i]))
         {
             convertedText.append(reversed_text[i]);
             continue;
         }
         if ((i - 1) < 0)
-            previousFaArChar = "ISNOTFA";
+            previousFaArChar = "NOTAR";
         else
         {
             if (IsFAChar(reversed_text[i - 1]))
                 previousFaArChar = reversed_text[i - 1];
             else
-                previousFaArChar = "ISNOTFA";
+                previousFaArChar = "NOTAR";
         }
 
         if ((i + 1) <= (reversed_text.size() - 1))
@@ -308,12 +309,12 @@ std::string RTLType::ConvertToFixed(const std::string& text)
             if (IsFAChar(reversed_text[i + 1]))
                 nextFaArChar = reversed_text[i + 1];
             else
-                nextFaArChar = "ISNOTFA";
+                nextFaArChar = "NOTAR";
         }
         else
-            nextFaArChar = "ISNOTFA";
+            nextFaArChar = "NOTAR";
 
-        std::string fa_glyph = GetFACharGlyph(reversed_text[i], nextFaArChar, nextFaArChar);
+        std::string fa_glyph = GetFACharGlyph(reversed_text[i], nextFaArChar, previousFaArChar);
         convertedText.append(fa_glyph);
     }
     return convertedText;
