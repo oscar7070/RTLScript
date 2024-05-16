@@ -175,8 +175,8 @@ namespace RTLType
     /// <returns>Returns a bool value. Possible values: true, false.</returns>
     bool IsPunctOrDigit(int c);
 
-    /// <summary>Reverses Farsi/Arabic/Hebrew... and other string and returns a vector of std::strings, each of them containing RTL letters with different byte counts.</summary>
-    /// <param name="str">Farsi/Arabic/Hebrew... and other string.</param>
+    /// <summary>Reverses Farsi/Arabic/Hebrew... string and returns a vector of std::strings, each of them containing RTL letters with different byte counts.</summary>
+    /// <param name="str">Farsi/Arabic/Hebrew... string.</param>
     /// <returns>Returns a vector of std::strings.</returns>
     std::vector<std::string> ReverseRTLText(const std::string& str);
 
