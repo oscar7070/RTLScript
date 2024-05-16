@@ -1,4 +1,4 @@
-// RTL type is my fork for FarsiType
+// RTLType is a fork for FarsiType
 #include "RTLType.h"
 #include <sstream>
 
@@ -154,6 +154,11 @@ bool RTLType::IsRTL(int codepoint)
     return ((codepoint >= 0x0590 && codepoint <= 0x08FF) || (codepoint >= 0xFB1D && codepoint <= 0xFEFC));
 }
 
+bool RTLType::IsPunctOrDigit(int c)
+{
+    return std::ispunct(c) || std::isdigit(c);
+}
+
 std::vector<std::string> RTLType::ReverseRTLText(const std::string& str)
 {
     std::vector<std::string> reversedStr;
@@ -168,10 +173,13 @@ std::vector<std::string> RTLType::ReverseRTLText(const std::string& str)
         for (int j = 0; j < line.size(); j++)
         {
             int codepoint = StringToCodepoint(line.substr(j, 2));
-            if (IsRTL(codepoint) || rtl == true)
+            bool isRTL = IsRTL(codepoint);
+            bool isSpace = std::isspace(line[j]);
+            bool isPunctOrDigitOrSpace = IsPunctOrDigit(line[j]) || isSpace;
+            if (isRTL || rtl == true && isPunctOrDigitOrSpace)
             {
                 rtl = true;
-                if (std::isspace(line[j]))
+                if (isSpace)
                 {
                     temp.insert(temp.begin(), std::string() + " ");
                 }
@@ -183,6 +191,11 @@ std::vector<std::string> RTLType::ReverseRTLText(const std::string& str)
             }
             else
             {
+                // Check if there a non RTL text to change the direction.
+                if (!isPunctOrDigitOrSpace)
+                {
+                    rtl = false;
+                }
                 reversedStr.insert(reversedStr.end(), std::string() + line[j]);
             }
 
