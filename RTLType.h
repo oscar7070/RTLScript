@@ -1,4 +1,4 @@
-// RTL type is my fork for FarsiType
+// RTLType is a fork for FarsiType
 #pragma once
 
 #include <string>
@@ -121,13 +121,18 @@ enum HebrewAlphabets_
     he_TET, // ט
     he_YOD, // י
     he_KAF, // כ
+    he_KAF_SOFIT, // ך
     he_LAMED, // ל
     he_MEM, // מ
+    he_MEM_SOFIT, // ם
     he_NUN, // נ
+    he_NUN_SOFIT, // ן
     he_SAMEKH, // ס
     he_AYIN, // ע
     he_PEI, // פ
+    he_PEI_SOFIT, // ף
     he_TSADIK, // צ
+    he_TSADIK_SOFIT, // ץ
     he_KUF, // ק
     he_RAYSH, // ר
     he_SHIN, // ש
@@ -166,25 +171,29 @@ namespace RTLType
     /// <returns>Returns a bool value. Possible values: true, false.</returns>
     bool IsRTL(int codepoint);
 
-    /// <summary>Reverses Farsi/Arabic string and returns a vector of std::strings, each of them containing Farsi/Arabic letters with different byte counts.</summary>
-    /// <param name="str">Farsi/Arabic string.</param>
+    /// <summary> Check if the char is punctuation or digit. </summary>
+    /// <returns>Returns a bool value. Possible values: true, false.</returns>
+    bool IsPunctOrDigit(int c);
+
+    /// <summary>Reverses Farsi/Arabic/Hebrew... and other string and returns a vector of std::strings, each of them containing RTL letters with different byte counts.</summary>
+    /// <param name="str">Farsi/Arabic/Hebrew... and other string.</param>
     /// <returns>Returns a vector of std::strings.</returns>
     std::vector<std::string> ReverseRTLText(const std::string& str);
 
-    /// <summary>Get correct unicode of Farsi/Arabic letter depending on its position, previous, and next letters.</summary>
+    /// <summary>Get correct unicode of Farsi/Arabic/Hebrew... letter depending on its position, previous, and next letters.</summary>
     /// <param name="fa_character">Character you want to check.</param>
     /// <param name="prevFAChar">Previous character, to check if its connected to fa_character or not.</param>
     /// <param name="nextFAChar">Next character, to check if its connected to fa_character or not.</param>
     /// <returns>Returns a std::string.</returns>
     std::string GetFACharGlyph(const std::string& fa_character, const std::string& prevFAChar, const std::string& nextFAChar);
 
-    /// <summary>Converts a Farsi/Arabic string to a normal, fixed, not-reversed string for using it in you program :).</summary>
-    /// <param name="text">Farsi/Arabic text.</param>
-    /// <returns>Returns a std::string. Fixed Farsi/Arabic string</returns>
+    /// <summary>Converts a Farsi/Arabic/Hebrew... string to a normal, fixed, not-reversed string for using it in you program :).</summary>
+    /// <param name="text">Farsi/Arabic/Hebrew... text.</param>
+    /// <returns>Returns a std::string. Fixed Farsi/Arabic/Hebrew... string</returns>
     std::string ConvertToFixed(const std::string& text);
 
-    /// <summary>Converts a Farsi/Arabic string to a normal, fixed, not-reversed string for using it in you program :).</summary>
-    /// <param name="text">Farsi/Arabic text.</param>
-    /// <returns>Returns a const char*. Fixed Farsi/Arabic string</returns>
+    /// <summary>Converts a Farsi/Arabic/Hebrew... string to a normal, fixed, not-reversed string for using it in you program :).</summary>
+    /// <param name="text">Farsi/Arabic/Hebrew... text.</param>
+    /// <returns>Returns a const char*. Fixed Farsi/Arabic/Hebrew... string</returns>
     const char* ConvertToFixed(const char* text);
 };
