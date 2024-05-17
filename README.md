@@ -22,7 +22,7 @@ If you found any issue or have any suggestion, feel free to create an issue for 
 Also, feel free to contribute and make this better for everyone :).  
 
 ## How to use it?
-RTLType is very easy to use just call:
+RTLType is very easy to use just call "RTLType::ConvertToFixed":
 ```
 #include "RTLType.h"
 #include <iostream>
