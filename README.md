@@ -28,4 +28,4 @@ void main()
 ```
 
 ## Known bugs
-- If you wrote in RTL and LTL in the same line it's maybe will be broken.
+- If you wrote in RTL and LTR in the same line it's maybe will be broken.
