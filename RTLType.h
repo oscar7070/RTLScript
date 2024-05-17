@@ -1,4 +1,4 @@
-// RTLType is a fork for FarsiType
+// RTLType is a fork for FarsiType: https://github.com/AmyrAhmady/FarsiType
 #pragma once
 
 #include <string>
