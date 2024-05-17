@@ -57,9 +57,9 @@ unsigned char RTLType::GetFACharPlace(const std::string& fa_character, const std
     bool in_next = false;
     for (auto const& fachar : FaAr_AlphabetsAllForms)
     {
-        if (prevFAChar != "NOTAR" || fachar[faAr_Unicode] == prevFAChar)
+        if (prevFAChar != "!AR" || fachar[faAr_Unicode] == prevFAChar)
             in_previous = true;
-        if (nextFAChar != "NOTAR" || fachar[faAr_Unicode] == nextFAChar)
+        if (nextFAChar != "!AR" || fachar[faAr_Unicode] == nextFAChar)
             in_next = true;
     }
 
@@ -295,13 +295,13 @@ std::string RTLType::ConvertToFixed(const std::string& text)
             continue;
         }
         if ((i - 1) < 0)
-            previousFaArChar = "NOTAR";
+            previousFaArChar = "!AR"; // !AR is to mark that the char is not arabic or farsi.
         else
         {
             if (IsFAChar(reversed_text[i - 1]))
                 previousFaArChar = reversed_text[i - 1];
             else
-                previousFaArChar = "NOTAR";
+                previousFaArChar = "!AR";
         }
 
         if ((i + 1) <= (reversed_text.size() - 1))
@@ -309,10 +309,10 @@ std::string RTLType::ConvertToFixed(const std::string& text)
             if (IsFAChar(reversed_text[i + 1]))
                 nextFaArChar = reversed_text[i + 1];
             else
-                nextFaArChar = "NOTAR";
+                nextFaArChar = "!AR";
         }
         else
-            nextFaArChar = "NOTAR";
+            nextFaArChar = "!AR";
 
         std::string fa_glyph = GetFACharGlyph(reversed_text[i], nextFaArChar, previousFaArChar);
         convertedText.append(fa_glyph);
@@ -323,4 +323,12 @@ std::string RTLType::ConvertToFixed(const std::string& text)
 const char* RTLType::ConvertToFixed(const char* text)
 {
     return ConvertToFixed(std::string(text)).c_str();
+}
+
+void RTLType::ConvertToFixed(const char*& text_begin, const char*& text_end, std::string& newStr)
+{
+    newStr = RTLType::ConvertToFixed(std::string(text_begin, text_end));
+    const char* chr = newStr.c_str();
+    text_begin = chr;
+    text_end = chr + newStr.size();
 }
