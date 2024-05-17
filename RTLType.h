@@ -4,6 +4,12 @@
 #include <string>
 #include <vector>
 
+#ifndef RTLTYPE_H
+#define RTLTYPE_H
+
+constexpr auto RTLTYPE_VERSION = "2.5";
+constexpr auto RTLTYPE_VERSION_NUM = 250;
+
 enum FarsiArabicTashkeel_
 {
     fat_FATHEH,
@@ -164,14 +170,17 @@ namespace RTLType
     bool IsFAChar(const std::string& fa_character);
 
     /// <summary> String of two chars to Codepoint. </summary>
+    /// <param name="str">String to get codepoint from.</param>
     /// <returns>Returns a int value.</returns>
     int StringToCodepoint(const std::string& str);
 
     /// <summary> Check if the code point is RTL. </summary>
+    /// <param name="codepoint">A codepoint of a unicode char.</param>
     /// <returns>Returns a bool value. Possible values: true, false.</returns>
     bool IsRTL(int codepoint);
 
     /// <summary> Check if the char is punctuation or digit. </summary>
+    /// <param name="c">A char.</param>
     /// <returns>Returns a bool value. Possible values: true, false.</returns>
     bool IsPunctOrDigit(int c);
 
@@ -196,4 +205,11 @@ namespace RTLType
     /// <param name="text">Farsi/Arabic/Hebrew... text.</param>
     /// <returns>Returns a const char*. Fixed Farsi/Arabic/Hebrew... string</returns>
     const char* ConvertToFixed(const char* text);
+
+    /// <summary>Converts a Farsi/Arabic/Hebrew... string to a normal, fixed, not-reversed string for using it in you program :).</summary>
+    /// <param name="text_begin">Farsi/Arabic/Hebrew... reference for a text beginning.</param>
+    /// <param name="text_end">Farsi/Arabic/Hebrew... reference for a text ending.</param>
+    /// <param name="newStr">Farsi/Arabic/Hebrew... reference for new or empty std::string.</param>
+    void ConvertToFixed(const char*& text_begin, const char*& text_end, std::string& newStr);
 };
+#endif
