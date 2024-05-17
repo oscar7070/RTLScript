@@ -24,7 +24,14 @@ Also, feel free to contribute and make this better for everyone :).
 ## How to use it?
 RTLType is very easy to use just call:
 ```
-auto fixedArabicText = RTLType::ConvertToFixed("أنا أحب الأناناس");
+#include "RTLType.h"
+#include <iostream>
+
+void main()
+{
+auto fixedArabicText = RTLType::ConvertToFixed("أنا أحب الأناناس"); // Convert to fixed text.
+std::cout <<fixedArabicText; // Print the result.
+}
 ```
 
 ## Known bugs
