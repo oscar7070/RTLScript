@@ -1,5 +1,5 @@
-// RTLType is a fork for FarsiType: https://github.com/AmyrAhmady/FarsiType
-#include "RTLType.h"
+// RTLScript is a fork of FarsiType: https://github.com/AmyrAhmady/FarsiType
+#include "RTLScript.h"
 #include <sstream>
 
 const std::vector<std::vector<std::string>> FaAr_AlphabetsAllForms =
@@ -51,10 +51,9 @@ const std::vector<std::vector<std::string>> FaAr_AlphabetsAllForms =
     {"\ufef7", "\ufef7", "\ufef7", "\ufef8", "\ufef8"}, // faAr_LAAM_ALEF_HAMZA_ABOVE, // لأ
 };
 
-unsigned char RTLType::GetFACharPlace(const std::string& fa_character, const std::string& prevFAChar, const std::string& nextFAChar)
+unsigned char RTLScript::GetFACharPlace(const std::string& fa_character, const std::string& prevFAChar, const std::string& nextFAChar)
 {
-    bool in_previous = false;
-    bool in_next = false;
+    bool in_previous = false, in_next = false;
     for (auto const& fachar : FaAr_AlphabetsAllForms)
     {
         if (prevFAChar != "!AR" || fachar[faAr_Unicode] == prevFAChar)
@@ -73,7 +72,7 @@ unsigned char RTLType::GetFACharPlace(const std::string& fa_character, const std
         return 0;
 }
 
-bool RTLType::IsFACharBeginner(const std::string& fa_character)
+bool RTLScript::IsFACharBeginner(const std::string& fa_character)
 {
     return
         fa_character == FaAr_AlphabetsAllForms[faAr_ALEF_HAMZEH_ABOVE][faAr_Unicode] ||
@@ -93,7 +92,7 @@ bool RTLType::IsFACharBeginner(const std::string& fa_character)
         ;
 }
 
-unsigned char RTLType::FindFACharIndex(const std::string& fa_character)
+unsigned char RTLScript::FindFACharIndex(const std::string& fa_character)
 {
     for (int i = 0; i < FaAr_AlphabetsAllForms.size(); ++i)
     {
@@ -109,7 +108,7 @@ unsigned char RTLType::FindFACharIndex(const std::string& fa_character)
     return FaAr_AlphabetsAllForms.size();
 }
 
-bool RTLType::IsFAChar(const std::string& fa_character)
+bool RTLScript::IsFAChar(const std::string& fa_character)
 {
     for (auto const& fachar : FaAr_AlphabetsAllForms)
     {
@@ -124,7 +123,8 @@ bool RTLType::IsFAChar(const std::string& fa_character)
     return false;
 }
 
-int RTLType::StringToCodepoint(const std::string& str) {
+int RTLScript::StringToCodepoint(const std::string& str)
+{
     if (str.empty()) return -1;
 
     unsigned char u0 = str[0];
@@ -148,18 +148,18 @@ int RTLType::StringToCodepoint(const std::string& str) {
     return -1; // Error
 }
 
-bool RTLType::IsRTL(int codepoint)
+bool RTLScript::IsRTL(int codepoint)
 {
     // Arabic (0600–06FF), Hebrew (0590–05FF), Farsi and etc.
     return ((codepoint >= 0x0590 && codepoint <= 0x08FF) || (codepoint >= 0xFB1D && codepoint <= 0xFEFC));
 }
 
-bool RTLType::IsPunctOrDigit(int c)
+bool RTLScript::IsPunctOrDigit(int c)
 {
     return std::ispunct(c) || std::isdigit(c);
 }
 
-std::vector<std::string> RTLType::ReverseRTLText(const std::string& str)
+std::vector<std::string> RTLScript::ReverseRTLText(const std::string& str)
 {
     std::vector<std::string> reversedStr;
 
@@ -221,71 +221,62 @@ std::vector<std::string> RTLType::ReverseRTLText(const std::string& str)
     return reversedStr;
 }
 
-std::string RTLType::GetFACharGlyph(const std::string& fa_character, const std::string& prevFAChar, const std::string& nextFAChar)
+std::string RTLScript::GetFaArCharGlyph(const std::string& faAr_character, const std::string& prevFAChar, const std::string& nextFAChar)
 {
-    if (!IsFAChar(fa_character)) return fa_character;
+    if (!IsFAChar(faAr_character)) return faAr_character;
 
-    unsigned char facharPlace;
-    unsigned char facharIndex;
-    facharPlace = GetFACharPlace(fa_character, prevFAChar, nextFAChar);
-    facharIndex = FindFACharIndex(fa_character);
+    unsigned char faArCharPlace = GetFACharPlace(faAr_character, prevFAChar, nextFAChar);
+    unsigned char faArCharIndex = FindFACharIndex(faAr_character);
 
-    switch (facharPlace)
+    switch (faArCharPlace)
     {
     case 3:
         if (IsFACharBeginner(prevFAChar))
         {
-            if (FaAr_AlphabetsAllForms[facharIndex][faAr_Beginner] == FaAr_AlphabetsAllForms[faAr_YEH][faAr_Beginner])
+            if (FaAr_AlphabetsAllForms[faArCharIndex][faAr_Beginner] == FaAr_AlphabetsAllForms[faAr_YEH][faAr_Beginner])
             {
                 return FaAr_AlphabetsAllForms[faAr_ARABIC_YEH][faAr_Beginner];
             }
-            return FaAr_AlphabetsAllForms[facharIndex][faAr_Beginner];
+            return FaAr_AlphabetsAllForms[faArCharIndex][faAr_Beginner];
         }
-        else
+        if (FaAr_AlphabetsAllForms[faArCharIndex][faAr_Medium] == FaAr_AlphabetsAllForms[faAr_YEH][faAr_Medium])
         {
-            if (FaAr_AlphabetsAllForms[facharIndex][faAr_Medium] == FaAr_AlphabetsAllForms[faAr_YEH][faAr_Medium])
-            {
-                return FaAr_AlphabetsAllForms[faAr_ARABIC_YEH][faAr_Medium];
-            }
-            return FaAr_AlphabetsAllForms[facharIndex][faAr_Medium];
+            return FaAr_AlphabetsAllForms[faAr_ARABIC_YEH][faAr_Medium];
         }
+        return FaAr_AlphabetsAllForms[faArCharIndex][faAr_Medium];
     case 2:
-        if (FaAr_AlphabetsAllForms[facharIndex][faAr_Beginner] == FaAr_AlphabetsAllForms[faAr_YEH][faAr_Beginner])
+        if (FaAr_AlphabetsAllForms[faArCharIndex][faAr_Beginner] == FaAr_AlphabetsAllForms[faAr_YEH][faAr_Beginner])
         {
             return FaAr_AlphabetsAllForms[faAr_ARABIC_YEH][faAr_Beginner];
         }
-        return FaAr_AlphabetsAllForms[facharIndex][faAr_Beginner];
+        return FaAr_AlphabetsAllForms[faArCharIndex][faAr_Beginner];
     case 1:
         if (IsFACharBeginner(prevFAChar))
         {
-            if (FaAr_AlphabetsAllForms[facharIndex][faAr_Isolated] == FaAr_AlphabetsAllForms[faAr_YEH][faAr_Isolated])
+            if (FaAr_AlphabetsAllForms[faArCharIndex][faAr_Isolated] == FaAr_AlphabetsAllForms[faAr_YEH][faAr_Isolated])
             {
                 return FaAr_AlphabetsAllForms[faAr_ALEF_MAKSURA][faAr_Isolated];
             }
-            return FaAr_AlphabetsAllForms[facharIndex][faAr_Isolated];
+            return FaAr_AlphabetsAllForms[faArCharIndex][faAr_Isolated];
         }
-        else
+        if (FaAr_AlphabetsAllForms[faArCharIndex][faAr_Final] == FaAr_AlphabetsAllForms[faAr_YEH][faAr_Final])
         {
-            if (FaAr_AlphabetsAllForms[facharIndex][faAr_Final] == FaAr_AlphabetsAllForms[faAr_YEH][faAr_Final])
-            {
-                return FaAr_AlphabetsAllForms[faAr_ALEF_MAKSURA][faAr_Final];
-            }
-            return FaAr_AlphabetsAllForms[facharIndex][faAr_Final];
+            return FaAr_AlphabetsAllForms[faAr_ALEF_MAKSURA][faAr_Final];
         }
+        return FaAr_AlphabetsAllForms[faArCharIndex][faAr_Final];
     default:
-        if (FaAr_AlphabetsAllForms[facharIndex][faAr_Isolated] == FaAr_AlphabetsAllForms[faAr_YEH][faAr_Isolated])
+        if (FaAr_AlphabetsAllForms[faArCharIndex][faAr_Isolated] == FaAr_AlphabetsAllForms[faAr_YEH][faAr_Isolated])
         {
             return FaAr_AlphabetsAllForms[faAr_ALEF_MAKSURA][faAr_Isolated];
         }
-        return FaAr_AlphabetsAllForms[facharIndex][faAr_Isolated];
+        return FaAr_AlphabetsAllForms[faArCharIndex][faAr_Isolated];
     }
 }
 
-std::string RTLType::ConvertToFixed(const std::string& text)
+std::string RTLScript::ConvertToFixed(const std::string& text)
 {
     std::vector<std::string> reversed_text = ReverseRTLText(text);
-    std::string convertedText;
-    std::string previousFaArChar, nextFaArChar;
+    std::string convertedText, previousFaArChar, nextFaArChar;
 
     for (int i = 0; i < reversed_text.size(); i++)
     {
@@ -295,7 +286,7 @@ std::string RTLType::ConvertToFixed(const std::string& text)
             continue;
         }
         if ((i - 1) < 0)
-            previousFaArChar = "!AR"; // !AR is to mark that the char is not arabic or farsi.
+            previousFaArChar = "!AR"; // !AR is to mark that the char is not Arabic or Farsi.
         else
         {
             if (IsFAChar(reversed_text[i - 1]))
@@ -314,20 +305,20 @@ std::string RTLType::ConvertToFixed(const std::string& text)
         else
             nextFaArChar = "!AR";
 
-        std::string fa_glyph = GetFACharGlyph(reversed_text[i], nextFaArChar, previousFaArChar);
+        std::string fa_glyph = GetFaArCharGlyph(reversed_text[i], nextFaArChar, previousFaArChar);
         convertedText.append(fa_glyph);
     }
     return convertedText;
 }
 
-const char* RTLType::ConvertToFixed(const char* text)
+const char* RTLScript::ConvertToFixed(const char* text)
 {
     return ConvertToFixed(std::string(text)).c_str();
 }
 
-void RTLType::ConvertToFixed(const char*& text_begin, const char*& text_end, std::string& newStr)
+void RTLScript::ConvertToFixed(const char*& text_begin, const char*& text_end, std::string& newStr)
 {
-    newStr = RTLType::ConvertToFixed(std::string(text_begin, text_end));
+    newStr = RTLScript::ConvertToFixed(std::string(text_begin, text_end));
     const char* chr = newStr.c_str();
     text_begin = chr;
     text_end = chr + newStr.size();
