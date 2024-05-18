@@ -1,12 +1,12 @@
-// RTLType is a fork for FarsiType: https://github.com/AmyrAhmady/FarsiType
+// RTLScript is a fork of FarsiType: https://github.com/AmyrAhmady/FarsiType
 #pragma once
 
 #include <string>
 
-#ifdef RTLTYPE_EXPORTS
-#define RTLTYPE_API __declspec(dllexport)
+#ifdef RTLSCRIPT_EXPORTS
+#define RTLSCRIPT_API __declspec(dllexport)
 #else
-#define RTLTYPE_API __declspec(dllimport)
+#define RTLSCRIPT_API __declspec(dllimport)
 #endif
 
-extern "C" RTLTYPE_API std::string ConvertToFixed(const std::string & text);
+extern "C" RTLSCRIPT_API std::string ConvertToFixed(const std::string & text);
