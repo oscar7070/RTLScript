@@ -27,10 +27,10 @@ void main()
 }
 ```
 
-Not working?
-First, it's not working make sure that your project setted to multibyte or unicode and not ASCII.
+## Not working?
+First, if it's not working make sure that your project setted to MultiByte or Unicode and not ASCII.
 Second, check that you are using /utf-8.
-Third, Check if your project files saved in utf-8.
+Third, check if your project files saved in utf-8.
 
 ## Known bugs
 - If you wrote in RTL and LTR in the same line it's maybe will be broken.
