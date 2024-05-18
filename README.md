@@ -31,6 +31,7 @@ void main()
 First, if it's not working make sure that your project setted to MultiByte or Unicode and not ASCII.
 Second, check that you are using /utf-8.
 Third, check if your project files saved in utf-8.
+Fourth, choose a font that supports that RTL language that you want to use.
 
 ## Known bugs
 - If you wrote in RTL and LTR in the same line it's maybe will be broken.
