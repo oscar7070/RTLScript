@@ -1,14 +1,14 @@
-// RTLType is a fork for FarsiType: https://github.com/AmyrAhmady/FarsiType
+// RTLScript is a fork of FarsiType: https://github.com/AmyrAhmady/FarsiType
 #pragma once
 
 #include <string>
 #include <vector>
 
-#ifndef RTLTYPE_H
-#define RTLTYPE_H
+#ifndef RTLSCRIPT_H
+#define RTLSCRIPT_H
 
-constexpr auto RTLTYPE_VERSION = "2.5";
-constexpr auto RTLTYPE_VERSION_NUM = 250;
+constexpr auto RTLSCRIPT_VERSION = "1.0";
+constexpr auto RTLSCRIPT_VERSION_NUM = 100;
 
 enum FarsiArabicTashkeel_
 {
@@ -145,7 +145,7 @@ enum HebrewAlphabets_
     he_TAV, // ת
 };
 
-namespace RTLType
+namespace RTLScript
 {
     /// <summary>Get Farsi/Arabic character place in a word for its form, depending its previous and next character.</summary>
     /// <param name="fa_character">Character you want to check its place.</param>
@@ -189,12 +189,12 @@ namespace RTLType
     /// <returns>Returns a vector of std::strings.</returns>
     std::vector<std::string> ReverseRTLText(const std::string& str);
 
-    /// <summary>Get correct unicode of Farsi/Arabic/Hebrew... letter depending on its position, previous, and next letters.</summary>
+    /// <summary>Get correct unicode of Farsi/Arabic letter depending on its position, previous, and next letters.</summary>
     /// <param name="fa_character">Character you want to check.</param>
-    /// <param name="prevFAChar">Previous character, to check if its connected to fa_character or not.</param>
-    /// <param name="nextFAChar">Next character, to check if its connected to fa_character or not.</param>
+    /// <param name="prevFAChar">Previous character, to check if its connected to faAr_character or not.</param>
+    /// <param name="nextFAChar">Next character, to check if its connected to faAr_character or not.</param>
     /// <returns>Returns a std::string.</returns>
-    std::string GetFACharGlyph(const std::string& fa_character, const std::string& prevFAChar, const std::string& nextFAChar);
+    std::string GetFaArCharGlyph(const std::string& faAr_character, const std::string& prevFAChar, const std::string& nextFAChar);
 
     /// <summary>Converts a Farsi/Arabic/Hebrew... string to a normal, fixed, not-reversed string for using it in you program :).</summary>
     /// <param name="text">Farsi/Arabic/Hebrew... text.</param>
