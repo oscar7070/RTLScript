@@ -6,10 +6,10 @@ RTLScript is a fork of FarsiType: https://github.com/AmyrAhmady/FarsiType
 
 ## Screenshots (using [ImGui](https://github.com/ocornut/imgui) for rendering)
 Correct Form:  
-![ScreenShot](https://github.com/oscar7070/RTLScript/blob/master/screenshots/CorrectForm.png)
+![ScreenShot](https://github.com/oscar7070/RTLScript/blob/master/screenshots/Fixed.png)
   
 Broken:   
-![ScreenShot](https://github.com/oscar7070/RTLScript/blob/master/screenshots/BrokenOne.png)
+![ScreenShot](https://github.com/oscar7070/RTLScript/blob/master/screenshots/Broken.png)
 
 ## About
 Hi, i needed RTL text in my project and i found a beautiful repository named FarsiType(https://github.com/AmyrAhmady/FarsiType) and i decided to improve it for my needs.
