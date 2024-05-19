@@ -1,4 +1,5 @@
 RTLScript is a very simple library for Farsi/Arabic/Hebrew/etc. strings written in C++20.
+
 RTLScript is a fork of FarsiType: https://github.com/AmyrAhmady/FarsiType
 
 ![RTLTypeLogo](https://github.com/oscar7070/RTLType/assets/56559647/1d01306a-8669-4920-98d4-6554cf16e600)
