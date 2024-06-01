@@ -2,7 +2,7 @@
 #include "RTLScriptExports.h"
 #include "RTLScript.h"
 
-std::string RTLScriptConvertToFixed(const std::string& text)
+const char* RTLScriptConvertToFixed(const char* text)
 {
     return RTLScript::ConvertToFixed(text);
 }
