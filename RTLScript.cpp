@@ -76,7 +76,6 @@ bool RTLScript::IsFACharBeginner(const std::string& fa_character)
 {
     return
         fa_character == FaAr_AlphabetsAllForms[faAr_ALEF_HAMZEH_ABOVE][faAr_Unicode] ||
-        fa_character == FaAr_AlphabetsAllForms[faAr_ALEF_HAMZEH_ABOVE][faAr_Unicode] ||
         fa_character == FaAr_AlphabetsAllForms[faAr_ALEF_MAD_ABOVE][faAr_Unicode] ||
         fa_character == FaAr_AlphabetsAllForms[faAr_ALEF][faAr_Unicode] ||
         fa_character == FaAr_AlphabetsAllForms[faAr_HAMZEH][faAr_Unicode] ||
@@ -92,7 +91,7 @@ bool RTLScript::IsFACharBeginner(const std::string& fa_character)
         ;
 }
 
-unsigned char RTLScript::FindFACharIndex(const std::string& fa_character)
+size_t RTLScript::FindFACharIndex(const std::string& fa_character)
 {
     for (int i = 0; i < FaAr_AlphabetsAllForms.size(); ++i)
     {
@@ -225,8 +224,8 @@ std::string RTLScript::GetFaArCharGlyph(const std::string& faAr_character, const
 {
     if (!IsFAChar(faAr_character)) return faAr_character;
 
-    unsigned char faArCharPlace = GetFACharPlace(faAr_character, prevFAChar, nextFAChar);
-    unsigned char faArCharIndex = FindFACharIndex(faAr_character);
+    const unsigned char faArCharPlace = GetFACharPlace(faAr_character, prevFAChar, nextFAChar);
+    const size_t faArCharIndex = FindFACharIndex(faAr_character);
 
     switch (faArCharPlace)
     {
