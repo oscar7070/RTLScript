@@ -9,4 +9,4 @@
 #define RTLSCRIPT_API __declspec(dllimport)
 #endif
 
-extern "C" RTLSCRIPT_API std::string RTLScriptConvertToFixed(const std::string & text);
+extern "C" RTLSCRIPT_API const char* RTLScriptConvertToFixed(const char* text);
