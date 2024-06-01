@@ -7,8 +7,8 @@
 #ifndef RTLSCRIPT_H
 #define RTLSCRIPT_H
 
-constexpr auto RTLSCRIPT_VERSION = "1.0";
-constexpr auto RTLSCRIPT_VERSION_NUM = 100;
+constexpr auto RTLSCRIPT_VERSION = "1.1";
+constexpr auto RTLSCRIPT_VERSION_NUM = 110;
 
 enum FarsiArabicTashkeel_
 {
@@ -162,7 +162,7 @@ namespace RTLScript
     /// <summary>Find vector index of the give character in fa_AlphabetsAllForms vector</summary>
     /// <param name="fa_character">Character you want get its index.</param>
     /// <returns>Returns an int in type of a char. Possible values: 0 to 44 (fa_AlphabetsAllForms array size).</returns>
-    unsigned char FindFACharIndex(const std::string& fa_character);
+    size_t FindFACharIndex(const std::string& fa_character);
 
     /// <summary>Check if given character is a Farsi/Arabic letter or not.</summary>
     /// <param name="fa_character">Character you want to check.</param>
