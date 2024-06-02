@@ -75,7 +75,6 @@ bool FarsiType::IsFACharBeginner(const std::string &fa_character)
 {
     return
         fa_character == fa_AlphabetsAllForms[faa_ALEF_HAMZEH_ABOVE][faa_Unicode] ||
-        fa_character == fa_AlphabetsAllForms[faa_ALEF_HAMZEH_ABOVE][faa_Unicode] ||
         fa_character == fa_AlphabetsAllForms[faa_ALEF_MAD_ABOVE][faa_Unicode] ||
         fa_character == fa_AlphabetsAllForms[faa_ALEF][faa_Unicode] ||
         fa_character == fa_AlphabetsAllForms[faa_HAMZEH][faa_Unicode] ||
