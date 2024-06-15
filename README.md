@@ -14,6 +14,12 @@ Broken:
 ## About
 Hi, i needed RTL text in my project and i found a beautiful repository named FarsiType(https://github.com/AmyrAhmady/FarsiType) and i decided to improve it for my needs.
 
+## Features
+1. RTLScript have a full support for Arabic, Hebrew, Farsi and Urdu.
+2. Support extra symbols like: لا, لأ, الله.
+2. Very easy to work with it.
+3. support RTL and LTR text in the same line.
+
 ## How to use it?
 RTLScript is very easy to use just call "RTLScript::ConvertToFixed":
 ```
