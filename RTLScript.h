@@ -157,7 +157,7 @@ const std::vector<std::vector<std::string>> Ar_AlphabetAllLetters =
     {"\u063a", "\ufecd", "\ufecf", "\ufed0", "\ufece"}, // Ar_GHAIN, // غ
     {"\u0641", "\ufed1", "\ufed3", "\ufed4", "\ufed2"}, // Ar_FEH, // ف
     {"\u0642", "\ufed5", "\ufed7", "\ufed8", "\ufed6"}, // Ar_QAAF, // ق
-    {"\u06a9", "\ufb8e", "\ufb90", "\ufb91", "\ufb8f"}, // Ar_KAAF, // ک // I had to change all forms to due to rendering issues in DX faa_KAAF_NO_HEAD | original: u8"\ufb8e", u8"\ufb90", u8"\ufb91", u8"\ufb8f"
+    {"\u06a9", "\ufb8e", "\ufb90", "\ufb91", "\ufb8f"}, // Ar_KAAF, // ک
     {"\u0643", "\ufed9", "\ufedb", "\ufedc", "\ufeda"}, // Ar_KAAF_NO_HEAD, // ك
     {"\u0644", "\ufedd", "\ufedf", "\ufee0", "\ufede"}, // Ar_LAAM, // ل
     {"\u0645", "\ufee1", "\ufee3", "\ufee4", "\ufee2"}, // Ar_MEEM, // م
@@ -224,32 +224,32 @@ enum HebrewAlphabet
 
 namespace RTLScript
 {
-    /// <summary>Get Farsi/Arabic character place in a word for its form, depending its previous and next character.</summary>
-    /// <param name="fa_character">Character you want to check its place.</param>
-    /// <param name="prevFAChar">Previous character, to check if its connected to fa_character or not.</param>
-    /// <param name="nextFAChar">Next character, to check if its connected to fa_character or not.</param>
+    /// <summary>Get Arabic/Farsi/Urdu character place in a word for its form, depending its previous and next character.</summary>
+    /// <param name="arCharacter">Character you want to check its place.</param>
+    /// <param name="prevARChar">Previous character, to check if its connected to arCharacter or not.</param>
+    /// <param name="nextARChar">Next character, to check if its connected to arCharacter or not.</param>
     /// <returns>Returns an int in type of a char. Possible values: 0- no connection, 1- connected from behind, 2- connected from front, 3- connected from both side.</returns>
-    unsigned char GetFACharPlace(const std::string& fa_character, const std::string& prevFAChar, const std::string& nextFAChar);
+    unsigned char GetARCharPlace(const std::string& arCharacter, const std::string& prevARChar, const std::string& nextARChar);
 
     /// <summary>Check if given character is a Arabic letter in beginner form or not.</summary>
-    /// <param name="fa_character">Character you want to check.</param>
+    /// <param name="arCharacter">Character you want to check.</param>
     /// <returns>Returns a bool value. Possible values: true, false.</returns>
-    bool IsArCharBeginner(const std::string& ar_character);
+    bool IsArCharBeginner(const std::string& arCharacter);
 
     /// <summary>Find vector index of the give character in Ar_AlphabetsAllForms vector</summary>
-    /// <param name="fa_character">Character you want get its index.</param>
+    /// <param name="arCharacter">Character you want get its index.</param>
     /// <returns>Returns an int in type of a char. Possible values: (ِِAr_AlphabetsAllForms array size).</returns>
-    size_t FindARCharIndex(const std::string& ar_character);
+    size_t FindARCharIndex(const std::string& arCharacter);
 
     /// <summary>Check if given character is a Arabic letter or not.</summary>
-    /// <param name="fa_character">Character you want to check.</param>
+    /// <param name="arCharacter">Character you want to check.</param>
     /// <returns>Returns a bool value. Possible values: true, false.</returns>
-    bool IsARChar(const std::string ar_character);
+    bool IsARChar(const std::string arCharacter);
 
     /// <summary>Check if given Arabic character is the Arabic letter that you want to check for.</summary>
-    /// <param name="fa_character">Character you want to check.</param>
+    /// <param name="arCharacter">Character you want to check.</param>
     /// <returns>Returns a bool value. Possible values: true, false.</returns>
-    bool CheckForARChar(const std::string& ar_character, ArabicAlphabet checkFor);
+    bool CheckForARChar(const std::string& arCharacter, ArabicAlphabet checkFor);
 
     /// <summary> String of two chars to Codepoint. </summary>
     /// <param name="str">String to get codepoint from.</param>
@@ -266,34 +266,39 @@ namespace RTLScript
     /// <returns>Returns a bool value. Possible values: true, false.</returns>
     bool IsPunctOrDigit(const int c);
 
-    /// <summary>Reverses Farsi/Arabic/Hebrew... string and returns a vector of std::strings, each of them containing RTL letters with different byte counts.</summary>
-    /// <param name="str">Farsi/Arabic/Hebrew... string.</param>
+    /// <summary>Reverses Arabic/Farsi/Hebrew/Urdu... string and returns a vector of std::strings, each of them containing RTL letters with different byte counts.</summary>
+    /// <param name="str">Arabic/Farsi/Hebrew/Urdu... string.</param>
     /// <returns>Returns a vector of std::strings.</returns>
     std::vector<std::string> ReverseRTLText(const std::string& str);
 
-    /// <summary>Get correct unicode of Farsi/Arabic letter depending on its position, previous, and next letters.</summary>
-    /// <param name="fa_character">Character you want to check.</param>
-    /// <param name="prevFAChar">Previous character, to check if its connected to Ar_character or not.</param>
-    /// <param name="nextFAChar">Next character, to check if its connected to Ar_character or not.</param>
+    /// <summary>Checks if the Arabic character is represents any type of LaamAlef.</summary>
+    /// <param name="str">A char.</param>
+    /// <returns>Returns a bool value. Possible values: true, false.</returns>
+    bool CheckForAnyTypeOfLaamAlef(const std::string& arCharacter);
+
+    /// <summary>Get correct unicode of Arabic/Farsi/Urdu letter depending on its position, previous, and next letters.</summary>
+    /// <param name="arCharacter">Character you want to check.</param>
+    /// <param name="prevARChar">Previous character, to check if its connected to arCcharacter or not.</param>
+    /// <param name="nextARChar">Next character, to check if its connected to arCharacter or not.</param>
     /// <returns>Returns a std::string.</returns>
-    std::string GetFaArCharGlyph(const std::string& faAr_character, const std::string& prevFAChar, const std::string& nextFAChar);
+    std::string GetARCharGlyph(const std::string& arCharacter, const std::string& prevARChar, const std::string& nextARChar);
 
     //void CheckForARWordAndReplace(const std::vector<ArabicAlphabets> checkFor, const std::string replaceTo, std::vector<std::string>& text);
 
-    /// <summary>Converts a Farsi/Arabic/Hebrew... string to a normal, fixed, not-reversed string for using it in you program :).</summary>
-    /// <param name="text">Farsi/Arabic/Hebrew... text.</param>
-    /// <returns>Returns a std::string. Fixed Farsi/Arabic/Hebrew... string</returns>
+    /// <summary>Converts a Arabic/Farsi/Urdu/Hebrew... string to a normal, fixed, not-reversed string for using it in you program :).</summary>
+    /// <param name="text">Arabic/Farsi/Urdu/Hebrew... text.</param>
+    /// <returns>Returns a std::string. Fixed Arabic/Farsi/Urdu/Hebrew... string</returns>
     std::string ConvertToFixed(const std::string& text);
 
-    /// <summary>Converts a Farsi/Arabic/Hebrew... string to a normal, fixed, not-reversed string for using it in you program :).</summary>
-    /// <param name="text">Farsi/Arabic/Hebrew... text.</param>
-    /// <returns>Returns a const char*. Fixed Farsi/Arabic/Hebrew... string</returns>
+    /// <summary>Converts a Arabic/Farsi/Urdu/Hebrew... string to a normal, fixed, not-reversed string for using it in you program :).</summary>
+    /// <param name="text">Arabic/Farsi/Urdu/Hebrew... text.</param>
+    /// <returns>Returns a const char*. Fixed Arabic/Farsi/Urdu/Hebrew... string</returns>
     const char* ConvertToFixed(const char* text);
 
-    /// <summary>Converts a Farsi/Arabic/Hebrew... string to a normal, fixed, not-reversed string for using it in you program :).</summary>
-    /// <param name="text_begin">Farsi/Arabic/Hebrew... reference for a text beginning.</param>
-    /// <param name="text_end">Farsi/Arabic/Hebrew... reference for a text ending.</param>
-    /// <param name="newStr">Farsi/Arabic/Hebrew... reference for new or empty std::string.</param>
+    /// <summary>Converts a Arabic/Farsi/Urdu/Hebrew... string to a normal, fixed, not-reversed string for using it in you program :).</summary>
+    /// <param name="text_begin">Arabic/Farsi/Urdu/Hebrew... reference for a text beginning.</param>
+    /// <param name="text_end">Arabic/Farsi/Urdu/Hebrew... reference for a text ending.</param>
+    /// <param name="newStr">Arabic/Farsi/Urdu/Hebrew... reference for new or empty std::string.</param>
     void ConvertToFixed(const char*& text_begin, const char*& text_end, std::string& newStr);
 };
 #endif

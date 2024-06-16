@@ -2,14 +2,14 @@
 #include "RTLScript.h"
 #include <sstream>
 
-unsigned char RTLScript::GetFACharPlace(const std::string& fa_character, const std::string& prevFAChar, const std::string& nextFAChar)
+unsigned char RTLScript::GetARCharPlace(const std::string& arCharacter, const std::string& prevARChar, const std::string& nextARChar)
 {
     bool in_previous = false, in_next = false;
     for (auto const& fachar : Ar_AlphabetAllLetters)
     {
-        if (prevFAChar != "!AR" || fachar[Ar_Forms_Unicode] == prevFAChar)
+        if (prevARChar != "!AR" || fachar[Ar_Forms_Unicode] == prevARChar)
             in_previous = true;
-        if (nextFAChar != "!AR" || fachar[Ar_Forms_Unicode] == nextFAChar)
+        if (nextARChar != "!AR" || fachar[Ar_Forms_Unicode] == nextARChar)
             in_next = true;
     }
 
@@ -23,32 +23,32 @@ unsigned char RTLScript::GetFACharPlace(const std::string& fa_character, const s
         return 0;
 }
 
-bool RTLScript::IsArCharBeginner(const std::string& ar_character)
+bool RTLScript::IsArCharBeginner(const std::string& arCharacter)
 {
-    return ar_character == Ar_AlphabetAllLetters[Ar_ALEF_HAMZA_ABOVE][Ar_Forms_Unicode] ||
-        ar_character == Ar_AlphabetAllLetters[Ar_ALEF_MADDAH_ABOVE][Ar_Forms_Unicode] ||
-        ar_character == Ar_AlphabetAllLetters[Ar_ALEF][Ar_Forms_Unicode] ||
-        ar_character == Ar_AlphabetAllLetters[Ar_HAMZA][Ar_Forms_Unicode] ||
-        ar_character == Ar_AlphabetAllLetters[Ar_WAW_HAMZA_ABOVE][Ar_Forms_Unicode] ||
-        ar_character == Ar_AlphabetAllLetters[Ar_ALEF_HAMZA_BELOW][Ar_Forms_Unicode] ||
-        ar_character == Ar_AlphabetAllLetters[Ar_DAAL][Ar_Forms_Unicode] ||
-        ar_character == Ar_AlphabetAllLetters[Ar_THAAL][Ar_Forms_Unicode] ||
-        ar_character == Ar_AlphabetAllLetters[Ar_REH][Ar_Forms_Unicode] ||
-        ar_character == Ar_AlphabetAllLetters[Ar_ZAIN][Ar_Forms_Unicode] ||
-        ar_character == Ar_AlphabetAllLetters[ArFa_JEH][Ar_Forms_Unicode] ||
-        ar_character == Ar_AlphabetAllLetters[Ar_WAW][Ar_Forms_Unicode] ||
-        ar_character == Ar_AlphabetAllLetters[Ar_ALEF_MAKSURA][Ar_Forms_Unicode];
+    return arCharacter == Ar_AlphabetAllLetters[Ar_ALEF_HAMZA_ABOVE][Ar_Forms_Unicode] ||
+        arCharacter == Ar_AlphabetAllLetters[Ar_ALEF_MADDAH_ABOVE][Ar_Forms_Unicode] ||
+        arCharacter == Ar_AlphabetAllLetters[Ar_ALEF][Ar_Forms_Unicode] ||
+        arCharacter == Ar_AlphabetAllLetters[Ar_HAMZA][Ar_Forms_Unicode] ||
+        arCharacter == Ar_AlphabetAllLetters[Ar_WAW_HAMZA_ABOVE][Ar_Forms_Unicode] ||
+        arCharacter == Ar_AlphabetAllLetters[Ar_ALEF_HAMZA_BELOW][Ar_Forms_Unicode] ||
+        arCharacter == Ar_AlphabetAllLetters[Ar_DAAL][Ar_Forms_Unicode] ||
+        arCharacter == Ar_AlphabetAllLetters[Ar_THAAL][Ar_Forms_Unicode] ||
+        arCharacter == Ar_AlphabetAllLetters[Ar_REH][Ar_Forms_Unicode] ||
+        arCharacter == Ar_AlphabetAllLetters[Ar_ZAIN][Ar_Forms_Unicode] ||
+        arCharacter == Ar_AlphabetAllLetters[ArFa_JEH][Ar_Forms_Unicode] ||
+        arCharacter == Ar_AlphabetAllLetters[Ar_WAW][Ar_Forms_Unicode] ||
+        arCharacter == Ar_AlphabetAllLetters[Ar_ALEF_MAKSURA][Ar_Forms_Unicode];
 }
 
-size_t RTLScript::FindARCharIndex(const std::string& ar_character)
+size_t RTLScript::FindARCharIndex(const std::string& arCharacter)
 {
     for (int i = 0; i < Ar_AlphabetAllLetters.size(); i++)
     {
-        if (ar_character == Ar_AlphabetAllLetters[i][Ar_Forms_Unicode] ||
-            ar_character == Ar_AlphabetAllLetters[i][Ar_Forms_Isolated] ||
-            ar_character == Ar_AlphabetAllLetters[i][Ar_Forms_Beginner] ||
-            ar_character == Ar_AlphabetAllLetters[i][Ar_Forms_Medium] ||
-            ar_character == Ar_AlphabetAllLetters[i][Ar_Forms_Final])
+        if (arCharacter == Ar_AlphabetAllLetters[i][Ar_Forms_Unicode] ||
+            arCharacter == Ar_AlphabetAllLetters[i][Ar_Forms_Isolated] ||
+            arCharacter == Ar_AlphabetAllLetters[i][Ar_Forms_Beginner] ||
+            arCharacter == Ar_AlphabetAllLetters[i][Ar_Forms_Medium] ||
+            arCharacter == Ar_AlphabetAllLetters[i][Ar_Forms_Final])
             return i;
         else
             continue;
@@ -56,30 +56,30 @@ size_t RTLScript::FindARCharIndex(const std::string& ar_character)
     return Ar_AlphabetAllLetters.size();
 }
 
-bool RTLScript::IsARChar(const std::string ar_character)
+bool RTLScript::IsARChar(const std::string arCharacter)
 {
     for (auto const& arChar : Ar_AlphabetAllLetters)
     {
-        if (ar_character == arChar[Ar_Forms_Unicode] ||
-            ar_character == arChar[Ar_Forms_Isolated] ||
-            ar_character == arChar[Ar_Forms_Beginner] ||
-            ar_character == arChar[Ar_Forms_Medium] ||
-            ar_character == arChar[Ar_Forms_Final])
+        if (arCharacter == arChar[Ar_Forms_Unicode] ||
+            arCharacter == arChar[Ar_Forms_Isolated] ||
+            arCharacter == arChar[Ar_Forms_Beginner] ||
+            arCharacter == arChar[Ar_Forms_Medium] ||
+            arCharacter == arChar[Ar_Forms_Final])
             return true;
         else continue;
     }
     return false;
 }
 
-bool RTLScript::CheckForARChar(const std::string& ar_character, ArabicAlphabet checkFor)
+bool RTLScript::CheckForARChar(const std::string& arCharacter, ArabicAlphabet checkFor)
 {
     for (auto const& arChar : Ar_AlphabetAllLetters)
     {
-        if (ar_character == Ar_AlphabetAllLetters[checkFor][Ar_Forms_Unicode] ||
-            ar_character == Ar_AlphabetAllLetters[checkFor][Ar_Forms_Isolated] ||
-            ar_character == Ar_AlphabetAllLetters[checkFor][Ar_Forms_Beginner] ||
-            ar_character == Ar_AlphabetAllLetters[checkFor][Ar_Forms_Medium] ||
-            ar_character == Ar_AlphabetAllLetters[checkFor][Ar_Forms_Final])
+        if (arCharacter == Ar_AlphabetAllLetters[checkFor][Ar_Forms_Unicode] ||
+            arCharacter == Ar_AlphabetAllLetters[checkFor][Ar_Forms_Isolated] ||
+            arCharacter == Ar_AlphabetAllLetters[checkFor][Ar_Forms_Beginner] ||
+            arCharacter == Ar_AlphabetAllLetters[checkFor][Ar_Forms_Medium] ||
+            arCharacter == Ar_AlphabetAllLetters[checkFor][Ar_Forms_Final])
             return true;
         else continue;
     }
@@ -178,17 +178,28 @@ std::vector<std::string> RTLScript::ReverseRTLText(const std::string& str)
     return reversedStr;
 }
 
-std::string RTLScript::GetFaArCharGlyph(const std::string& faAr_character, const std::string& prevFAChar, const std::string& nextFAChar)
+bool RTLScript::CheckForAnyTypeOfLaamAlef(const std::string& arCharacter)
 {
-    if (!IsARChar(faAr_character)) return faAr_character;
+    if (CheckForARChar(arCharacter, Ar_LAAM_ALEF) ||
+        CheckForARChar(arCharacter, Ar_LAAM_ALEF_HAMZA_ABOVE) ||
+        CheckForARChar(arCharacter, Ar_LAAM_ALEF_HAMZA_BELOW) ||
+        CheckForARChar(arCharacter, Ar_LAAM_ALEF_MADDAH_ABOVE))
+        return true;
+    else
+        return false;
+}
 
-    const unsigned char faArCharPlace = GetFACharPlace(faAr_character, prevFAChar, nextFAChar);
-    const size_t arCharIndex = FindARCharIndex(faAr_character);
+std::string RTLScript::GetARCharGlyph(const std::string& arCharacter, const std::string& prevARChar, const std::string& nextARChar)
+{
+    if (!IsARChar(arCharacter)) return arCharacter;
+
+    const unsigned char faArCharPlace = GetARCharPlace(arCharacter, prevARChar, nextARChar);
+    const size_t arCharIndex = FindARCharIndex(arCharacter);
 
     switch (faArCharPlace)
     {
     case 3:
-        if (IsArCharBeginner(prevFAChar))
+        if (IsArCharBeginner(prevARChar))
         {
             if (Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Beginner] == Ar_AlphabetAllLetters[Ar_YEH][Ar_Forms_Beginner])
             {
@@ -200,7 +211,10 @@ std::string RTLScript::GetFaArCharGlyph(const std::string& faAr_character, const
         {
             return Ar_AlphabetAllLetters[Ar_ARABIC_YEH][Ar_Forms_Medium];
         }
-        return Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Medium];
+        if (CheckForAnyTypeOfLaamAlef(prevARChar))
+            return Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Beginner];
+        else
+            return Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Medium];
     case 2:
         if (Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Beginner] == Ar_AlphabetAllLetters[Ar_YEH][Ar_Forms_Beginner])
         {
@@ -208,7 +222,7 @@ std::string RTLScript::GetFaArCharGlyph(const std::string& faAr_character, const
         }
         return Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Beginner];
     case 1:
-        if (IsArCharBeginner(prevFAChar))
+        if (IsArCharBeginner(prevARChar))
         {
             if (Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Isolated] == Ar_AlphabetAllLetters[Ar_YEH][Ar_Forms_Isolated])
             {
@@ -220,7 +234,10 @@ std::string RTLScript::GetFaArCharGlyph(const std::string& faAr_character, const
         {
             return Ar_AlphabetAllLetters[Ar_ALEF_MAKSURA][Ar_Forms_Final];
         }
-        return Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Final];
+        if (CheckForAnyTypeOfLaamAlef(prevARChar))
+            return Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Isolated];
+        else
+            return Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Final];
     default:
         if (Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Isolated] == Ar_AlphabetAllLetters[Ar_YEH][Ar_Forms_Isolated])
         {
@@ -270,7 +287,7 @@ std::string RTLScript::GetFaArCharGlyph(const std::string& faAr_character, const
 std::string RTLScript::ConvertToFixed(const std::string& text)
 {
     std::vector<std::string> reversed_text = ReverseRTLText(text);
-    std::string convertedText, previousFaArChar, nextFaArChar;
+    std::string convertedText, previousArChar, nextArChar;
 
     // Change chars to they currect form for exemple: ل + ا = لا
     for (int i = 0; i < reversed_text.size(); i++)
@@ -326,27 +343,27 @@ std::string RTLScript::ConvertToFixed(const std::string& text)
             continue;
         }
         if ((i - 1) < 0)
-            previousFaArChar = "!AR"; // !AR is to mark that the char is not Arabic.
+            previousArChar = "!AR"; // !AR is to mark that the char is not Arabic.
         else
         {
             if (IsARChar(reversed_text[i - 1]))
-                previousFaArChar = reversed_text[i - 1];
+                previousArChar = reversed_text[i - 1];
             else
-                previousFaArChar = "!AR";
+                previousArChar = "!AR";
         }
 
         if ((i + 1) <= (reversedTextSize - 1))
         {
             if (IsARChar(reversed_text[i + 1]))
-                nextFaArChar = reversed_text[i + 1];
+                nextArChar = reversed_text[i + 1];
             else
-                nextFaArChar = "!AR";
+                nextArChar = "!AR";
         }
         else
-            nextFaArChar = "!AR";
+            nextArChar = "!AR";
 
-        std::string fa_glyph = GetFaArCharGlyph(reversed_text[i], nextFaArChar, previousFaArChar);
-        convertedText.append(fa_glyph);
+        std::string arGlyph = GetARCharGlyph(reversed_text[i], nextArChar, previousArChar);
+        convertedText.append(arGlyph);
     }
     return convertedText;
 }
