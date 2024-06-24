@@ -42,5 +42,5 @@ Third, check if your project files saved in utf-8.
 
 Fourth, choose a font that supports that RTL language that you want to use.
 
-## Known bugs
-- If you wrote in RTL and LTR in the same line it's maybe will be broken.
+## Possible bugs
+- If you wrote in RTL and LTR in the same line it's maybe will be broken(but it's very rare i think it's just possible).
