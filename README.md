@@ -18,7 +18,7 @@ Hi, i needed RTL text in my project and i found a beautiful repository named Far
 1. RTLScript have a full support for Arabic, Hebrew, Farsi and Urdu.
 2. Support extra symbols like: لا, لأ, لآ, لإ, الله.
 2. Very easy to work with it.
-3. support RTL and LTR text in the same line.
+3. Support RTL and LTR text in the same line.
 
 ## How to use it?
 RTLScript is very easy to use just call "RTLScript::ConvertToFixed":
