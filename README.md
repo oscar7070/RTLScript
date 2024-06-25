@@ -2,7 +2,7 @@ RTLScript is a very simple library for Farsi/Arabic/Hebrew/Urdu/etc. strings wri
 
 RTLScript is a fork of FarsiType: https://github.com/AmyrAhmady/FarsiType
 
-* Just a logo that i made for fun i Live to make a logos for my Project (: *
+*Just a logo that i made for fun i Live to make a logos for my Project (:*
 ![RTLTypeLogo](https://github.com/oscar7070/RTLType/assets/56559647/1d01306a-8669-4920-98d4-6554cf16e600)
 
 ## Screenshots (using [ImGui](https://github.com/ocornut/imgui) for rendering through [ExtremeEngine](https://github.com/oscar7070/ExtremeEngine))
