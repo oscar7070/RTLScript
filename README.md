@@ -30,8 +30,20 @@ RTLScript is very easy to use just call "RTLScript::ConvertToFixed":
 
 void main()
 {
+    // Without properties.
     auto fixedArabicText = RTLScript::ConvertToFixed("أنا أحب الأناناس"); // Convert to fixed text.
-    std::cout <<fixedArabicText; // Print the result.
+    std::cout << fixedArabicText; // Print the result.
+
+    // With properties.
+    RTLScriptConverterProperties properties =
+    {
+        .JoiningArabicLetters = true,
+        .EnableSpecialWordAllahForm = true,
+        .EnableJointLaamAlifForm = false,
+    };
+
+    auto fixedArabicTextWithProperties = RTLScript::ConvertToFixed("أنا أحب الأناناس", &properties); // Convert to fixed text with properties.
+    std::cout << fixedArabicTextWithProperties; // Print the result.
 }
 ```
 
