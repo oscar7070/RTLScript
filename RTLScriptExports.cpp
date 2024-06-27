@@ -1,8 +1,8 @@
 // RTLScript is a fork of FarsiType: https://github.com/AmyrAhmady/FarsiType
-#include "RTLScriptExports.h"
 #include "RTLScript.h"
+#include "RTLScriptExports.h"
 
-const char* RTLScriptConvertToFixed(const char* text)
+const char* RTLScriptConvertToFixed(const char* text, RTLScriptConverterProperties* properties)
 {
-    return RTLScript::ConvertToFixed(text);
+    return RTLScript::ConvertToFixed(text, properties);
 }

@@ -7,15 +7,41 @@
 #ifndef RTLSCRIPT_H
 #define RTLSCRIPT_H
 
-constexpr auto RTLSCRIPT_VERSION = "1.3";
-constexpr auto RTLSCRIPT_VERSION_NUM = 130;
+// RTLScript version.
+constexpr auto RTLSCRIPT_VERSION = "1.4";
+// RTLScript version number.
+constexpr auto RTLSCRIPT_VERSION_NUM = 140;
+// RTLScript release type for exemple: STABLE, PREVIEW, BETA.
+constexpr auto RTLSCRIPT_RELEASE_TYPE = "STABLE";
+
+// Properties for ConvertToFixed() function.
+struct RTLScriptConverterProperties
+{
+public:
+    bool JoiningArabicLetters = true;
+    // Enables: الله
+    bool EnableSpecialWordAllahForm = true;
+    // Enables: لا
+    bool EnableJointLaamAlifForm = true;
+    //bool ReverseRTL = true;
+
+    //RTLScriptConverterProperties(bool joiningArabicLetters = true, bool enableSpecialWordAllahForm = true, bool enableJointLaamAlifForm = true, bool reverseRTL = true)
+    //{
+    //    JoiningArabicLetters = joiningArabicLetters;
+    //    EnableSpecialWordAllahForm = enableSpecialWordAllahForm;
+    //    EnableJointLaamAlifForm = enableJointLaamAlifForm;
+    //    ReverseRTL = reverseRTL;
+    //}
+};
+
+const RTLScriptConverterProperties DefaultConverterProperties{ true, true, true }; //, true };
 
 enum ArabicTashkeel
 {
     AR_TASHKEEL_FATHA,
     AR_TASHKEEL_FATHA_TAN,
     AR_TASHKEEL_DAMMA,
-    AR_TASHKEEL_DAMMA_TAN ,
+    AR_TASHKEEL_DAMMA_TAN,
     AR_TASHKEEL_KASRA,
     AR_TASHKEEL_KASRA_TAN,
     AR_TASHKEEL_SUKUN,
@@ -28,7 +54,7 @@ enum ArabicTashkeel_FarsiNames
     FA_TASHKEEL_FATHEH = AR_TASHKEEL_FATHA,
     FA_TASHKEEL_TANVIN_NASB = AR_TASHKEEL_FATHA_TAN,
     FA_TASHKEEL_ZAMMEH = AR_TASHKEEL_DAMMA,
-    FA_TASHKEEL_TANVIN_RAF= AR_TASHKEEL_DAMMA_TAN,
+    FA_TASHKEEL_TANVIN_RAF = AR_TASHKEEL_DAMMA_TAN,
     FA_TASHKEEL_KASREH = AR_TASHKEEL_KASRA,
     FA_TASHKEEL_TANVIN_JARR = AR_TASHKEEL_KASRA_TAN,
     FA_TASHKEEL_SOKOON = AR_TASHKEEL_SUKUN,
@@ -38,12 +64,12 @@ enum ArabicTashkeel_FarsiNames
 enum ArabicAlphabet
 {
     // Arabic
-    Ar_ALEF_HAMZA_ABOVE, // أ
-    Ar_ALEF, // ا
-    Ar_ALEF_MADDAH_ABOVE, // آ
+    Ar_ALIF_HAMZA_ABOVE, // أ
+    Ar_ALIF, // ا
+    Ar_ALIF_MADDAH_ABOVE, // آ
     Ar_HAMZA, // ء
     Ar_WAW_HAMZA_ABOVE, // ؤ
-    Ar_ALEF_HAMZA_BELOW, // إ
+    Ar_ALIF_HAMZA_BELOW, // إ
     Ar_YEH_HAMZA_ABOVE, // ئ
     Ar_BEH, // ب
     Ar_TEH, // ت
@@ -75,13 +101,13 @@ enum ArabicAlphabet
     Ar_HA, // ه
     Ar_YEH, // ی
     Ar_ARABIC_YEH, // ي
-    Ar_ALEF_MAKSURA, // ى
+    Ar_ALIF_MAKSURA, // ى
     Ar_TATWEEL, // ـ
 
-    Ar_LAAM_ALEF, // لا
-    Ar_LAAM_ALEF_HAMZA_ABOVE, // لأ
-    Ar_LAAM_ALEF_HAMZA_BELOW, // لإ
-    Ar_LAAM_ALEF_MADDAH_ABOVE, // لآ
+    Ar_LAAM_ALIF, // لا
+    Ar_LAAM_ALIF_HAMZA_ABOVE, // لأ
+    Ar_LAAM_ALIF_HAMZA_BELOW, // لإ
+    Ar_LAAM_ALIF_MADDAH_ABOVE, // لآ
     Ar_Allah, // ﷲ
 
     // Farsi
@@ -102,11 +128,11 @@ enum ArabicAlphabet
 
 enum ArabicAlphabet_FarsiNames
 {
-    Fa_ALEF_HAMZEH_ABOVE = Ar_ALEF_HAMZA_ABOVE,
-    Fa_ALEF_MAD_ABOVE = Ar_ALEF_MADDAH_ABOVE,
+    Fa_ALEF_HAMZEH_ABOVE = Ar_ALIF_HAMZA_ABOVE,
+    Fa_ALEF_MAD_ABOVE = Ar_ALIF_MADDAH_ABOVE,
     Fa_HAMZA,
     Fa_VAAV_HAMZEH_ABOVE = Ar_WAW_HAMZA_ABOVE,
-    Fa_ALEF_HAMZEH_BELOW = Ar_ALEF_HAMZA_BELOW,
+    Fa_ALEF_HAMZEH_BELOW = Ar_ALIF_HAMZA_BELOW,
     Fa_YEH_HAMZEH_ABOVE = Ar_YEH_HAMZA_ABOVE,
     Fa_TEH_TANIS = Ar_TEH_MARBUTA,
     Fa_SEH = Ar_THEH,
@@ -129,12 +155,12 @@ enum ArabicLetterForm
 const std::vector<std::vector<std::string>> Ar_AlphabetAllLetters =
 {
     // Arabic
-    {"\u0623", "\ufe83", "\u0623", "\ufe84", "\ufe84"}, // Ar_ALEF_HAMZA_ABOVE, // أ
-    {"\u0627", "\ufe8d", "\u0627", "\ufe8e", "\ufe8e"}, // Ar_ALEF, // ا
-    {"\u0622", "\ufe81", "\u0622", "\ufe82", "\ufe82"}, // Ar_ALEF_MADDAH_ABOVE, // آ
+    {"\u0623", "\ufe83", "\u0623", "\ufe84", "\ufe84"}, // Ar_ALIF_HAMZA_ABOVE, // أ
+    {"\u0627", "\ufe8d", "\u0627", "\ufe8e", "\ufe8e"}, // Ar_ALIF, // ا
+    {"\u0622", "\ufe81", "\u0622", "\ufe82", "\ufe82"}, // Ar_ALIF_MADDAH_ABOVE, // آ
     {"\u0621", "\ufe80", "\u0621", "\u0621", "\u0621"}, // Ar_HAMZA, // ء
     {"\u0624", "\ufe85", "\u0624", "\ufe86", "\ufe86"}, // Ar_WAW_HAMZA_ABOVE, // ؤ
-    {"\u0625", "\ufe87", "\u0625", "\ufe88", "\ufe88"}, // Ar_ALEF_HAMZA_BELOW, // إ
+    {"\u0625", "\ufe87", "\u0625", "\ufe88", "\ufe88"}, // Ar_ALIF_HAMZA_BELOW, // إ
     {"\u0626", "\ufe89", "\ufe8b", "\ufe8c", "\ufe8a"}, // Ar_YEH_HAMZA_ABOVE, // ئ
     {"\u0628", "\ufe8f", "\ufe91", "\ufe92", "\ufe90"}, // Ar_BEH, // ب
     {"\u062A", "\ufe95", "\ufe97", "\ufe98", "\ufe96"}, // Ar_TEH, // ت
@@ -166,13 +192,13 @@ const std::vector<std::vector<std::string>> Ar_AlphabetAllLetters =
     {"\u0647", "\ufee9", "\ufeeb", "\ufeec", "\ufeea"}, // Ar_HA, // ه
     {"\u06cc", "\ufbfc", "\ufbfe", "\ufbff", "\ufbfd"}, // Ar_YEH, // ی
     {"\u064a", "\ufef1", "\ufef3", "\ufef4", "\ufef2"}, // Ar_ARABIC_YEH, // ي
-    {"\u0649", "\ufeef", "\u0649", "\ufef0", "\ufef0"}, // Ar_ALEF_MAKSURA, // ى
+    {"\u0649", "\ufeef", "\u0649", "\ufef0", "\ufef0"}, // Ar_ALIF_MAKSURA, // ى
     {"\u0640", "\u0640", "\u0640", "\u0640", "\u0640"}, // Ar_TATWEEL, // ـ
 
-    {"\ufefb", "\ufefb", "\ufefb", "\ufefc", "\ufefc"}, // Ar_LAAM_ALEF, // لا
-    {"\ufef7", "\ufef7", "\ufef7", "\ufef8", "\ufef8"}, // Ar_LAAM_ALEF_HAMZA_ABOVE, // لأ
-    {"\ufef9", "\ufef9", "\ufef9", "\ufefa", "\ufefa"}, // Ar_LAAM_ALEF_HAMZA_BELOW, // لإ
-    {"\ufef5", "\ufef5", "\ufef5", "\ufef6", "\ufef6"}, // Ar_LAAM_ALEF_MADDAH_ABOVE, // لآ
+    {"\ufefb", "\ufefb", "\ufefb", "\ufefc", "\ufefc"}, // Ar_LAAM_ALIF, // لا
+    {"\ufef7", "\ufef7", "\ufef7", "\ufef8", "\ufef8"}, // Ar_LAAM_ALIF_HAMZA_ABOVE, // لأ
+    {"\ufef9", "\ufef9", "\ufef9", "\ufefa", "\ufefa"}, // Ar_LAAM_ALIF_HAMZA_BELOW, // لإ
+    {"\ufef5", "\ufef5", "\ufef5", "\ufef6", "\ufef6"}, // Ar_LAAM_ALIF_MADDAH_ABOVE, // لآ
     {"\ufdf2", "\ufdf2", "\ufdf2", "\ufdf2", "\ufdf2"}, // Ar_Allah, // ﷲ
 
     // Farsi
@@ -229,7 +255,7 @@ namespace RTLScript
     /// <param name="prevARChar">Previous character, to check if its connected to arCharacter or not.</param>
     /// <param name="nextARChar">Next character, to check if its connected to arCharacter or not.</param>
     /// <returns>Returns an int in type of a char. Possible values: 0- no connection, 1- connected from behind, 2- connected from front, 3- connected from both side.</returns>
-    unsigned char GetARCharPlace(const std::string& arCharacter, const std::string& prevARChar, const std::string& nextARChar);
+    ArabicLetterForm GetARCharPlace(const std::string& arCharacter, const std::string& prevARChar, const std::string& nextARChar);
 
     /// <summary>Check if given character is a Arabic letter in beginner form or not.</summary>
     /// <param name="arCharacter">Character you want to check.</param>
@@ -271,10 +297,10 @@ namespace RTLScript
     /// <returns>Returns a vector of std::strings.</returns>
     std::vector<std::string> ReverseRTLText(const std::string& str);
 
-    /// <summary>Checks if the Arabic character is represents any type of LaamAlef.</summary>
+    /// <summary>Checks if the Arabic character is represents any type of LaamAlif.</summary>
     /// <param name="str">A char.</param>
     /// <returns>Returns a bool value. Possible values: true, false.</returns>
-    bool CheckForAnyTypeOfLaamAlef(const std::string& arCharacter);
+    bool CheckForAnyTypeOfLaamAlif(const std::string& arCharacter);
 
     /// <summary>Get correct unicode of Arabic/Farsi/Urdu letter depending on its position, previous, and next letters.</summary>
     /// <param name="arCharacter">Character you want to check.</param>
@@ -288,17 +314,20 @@ namespace RTLScript
     /// <summary>Converts a Arabic/Farsi/Urdu/Hebrew... string to a normal, fixed, not-reversed string for using it in you program :).</summary>
     /// <param name="text">Arabic/Farsi/Urdu/Hebrew... text.</param>
     /// <returns>Returns a std::string. Fixed Arabic/Farsi/Urdu/Hebrew... string</returns>
-    std::string ConvertToFixed(const std::string& text);
+    /// <param name="properties">Properties for the converter. if NULL will use default properties.</param>
+    std::string ConvertToFixed(const std::string& text, RTLScriptConverterProperties* properties = NULL);
 
     /// <summary>Converts a Arabic/Farsi/Urdu/Hebrew... string to a normal, fixed, not-reversed string for using it in you program :).</summary>
     /// <param name="text">Arabic/Farsi/Urdu/Hebrew... text.</param>
     /// <returns>Returns a const char*. Fixed Arabic/Farsi/Urdu/Hebrew... string</returns>
-    const char* ConvertToFixed(const char* text);
+    /// <param name="properties">Properties for the converter. if NULL will use default properties.</param>
+    const char* ConvertToFixed(const char* text, RTLScriptConverterProperties* properties = NULL);
 
     /// <summary>Converts a Arabic/Farsi/Urdu/Hebrew... string to a normal, fixed, not-reversed string for using it in you program :).</summary>
     /// <param name="text_begin">Arabic/Farsi/Urdu/Hebrew... reference for a text beginning.</param>
     /// <param name="text_end">Arabic/Farsi/Urdu/Hebrew... reference for a text ending.</param>
     /// <param name="newStr">Arabic/Farsi/Urdu/Hebrew... reference for new or empty std::string.</param>
-    void ConvertToFixed(const char*& text_begin, const char*& text_end, std::string& newStr);
+    /// <param name="properties">Properties for the converter. if NULL will use default properties.</param>
+    void ConvertToFixed(const char*& text_begin, const char*& text_end, std::string& newStr, RTLScriptConverterProperties* properties = NULL);
 };
 #endif
