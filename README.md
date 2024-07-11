@@ -1,5 +1,5 @@
 ## RTLScript
-A simple library for Arabic, Hebrew, Farsi, Urdu and etc. text written in C++20.
+A simple library for Arabic, Hebrew, Farsi, Urdu and etc. for modern C++ standards.
 
 RTLScript is a fork of FarsiType: https://github.com/AmyrAhmady/FarsiType
 
