@@ -20,7 +20,7 @@ Hi, i needed RTL text in my project and i found a beautiful repository named Far
 ## Features
 1. RTLScript have a full support for Arabic, Hebrew, Farsi and Urdu.
 2. Supports extra symbols like: لا, لأ, لآ, لإ, الله.
-3. Supports Arabic tashkil(diacritic) for example: َ ً ُ ٌ ِ ٍ ْ and some other.
+3. Supports Arabic tashkil(diacritic) for example: َ  ً  ُ  ٌ  ِ  ٍ  ْ and some other.
 4. Very easy to work with it.
 5. Support RTL and LTR text in the same line.
 
