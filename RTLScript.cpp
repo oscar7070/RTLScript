@@ -7,86 +7,86 @@ ArabicLetterForm RTLScript::GetARCharPlace(const std::string& arCharacter, const
     bool in_previous = false, in_next = false;
     for (auto const& arChar : Ar_AlphabetAllLetters)
     {
-        if (prevARChar != "!AR" || arChar[Ar_Forms_Unicode] == prevARChar)
+        if (prevARChar != RTLSCRIPT_NOT_AR_CHAR || arChar[AR_FORMS_UNICODE] == prevARChar)
             in_previous = true;
-        if (nextARChar != "!AR" || arChar[Ar_Forms_Unicode] == nextARChar)
+        if (nextARChar != RTLSCRIPT_NOT_AR_CHAR || arChar[AR_FORMS_UNICODE] == nextARChar)
             in_next = true;
     }
 
     if (in_previous && in_next)
-        return Ar_Forms_Medium;
+        return AR_FORMS_MEDIUM;
     if (in_next)
-        return Ar_Forms_Beginner;
+        return AR_FORMS_BEGINNER;
     if (in_previous)
-        return Ar_Forms_Final;
+        return AR_FORMS_FINAL;
     else
-        return Ar_Forms_Isolated;
+        return AR_FORMS_ISOLATED;
 }
 
 bool RTLScript::IsArCharBeginner(const std::string& arCharacter)
 {
-    return arCharacter == Ar_AlphabetAllLetters[Ar_ALIF_HAMZA_ABOVE][Ar_Forms_Unicode] ||
-        arCharacter == Ar_AlphabetAllLetters[Ar_ALIF_MADDAH_ABOVE][Ar_Forms_Unicode] ||
-        arCharacter == Ar_AlphabetAllLetters[Ar_ALIF][Ar_Forms_Unicode] ||
-        arCharacter == Ar_AlphabetAllLetters[Ar_HAMZA][Ar_Forms_Unicode] ||
-        arCharacter == Ar_AlphabetAllLetters[Ar_WAW_HAMZA_ABOVE][Ar_Forms_Unicode] ||
-        arCharacter == Ar_AlphabetAllLetters[Ar_ALIF_HAMZA_BELOW][Ar_Forms_Unicode] ||
-        arCharacter == Ar_AlphabetAllLetters[Ar_DAAL][Ar_Forms_Unicode] ||
-        arCharacter == Ar_AlphabetAllLetters[Ar_THAAL][Ar_Forms_Unicode] ||
-        arCharacter == Ar_AlphabetAllLetters[Ar_REH][Ar_Forms_Unicode] ||
-        arCharacter == Ar_AlphabetAllLetters[Ar_ZAIN][Ar_Forms_Unicode] ||
-        arCharacter == Ar_AlphabetAllLetters[ArFa_JEH][Ar_Forms_Unicode] ||
-        arCharacter == Ar_AlphabetAllLetters[Ar_WAW][Ar_Forms_Unicode] ||
-        arCharacter == Ar_AlphabetAllLetters[Ar_ALIF_MAKSURA][Ar_Forms_Unicode];
+    return arCharacter == Ar_AlphabetAllLetters[AR_ALIF_HAMZA_ABOVE][AR_FORMS_UNICODE] ||
+        arCharacter == Ar_AlphabetAllLetters[AR_ALIF_MADDAH_ABOVE][AR_FORMS_UNICODE] ||
+        arCharacter == Ar_AlphabetAllLetters[AR_ALIF][AR_FORMS_UNICODE] ||
+        arCharacter == Ar_AlphabetAllLetters[AR_HAMZA][AR_FORMS_UNICODE] ||
+        arCharacter == Ar_AlphabetAllLetters[AR_WAW_HAMZA_ABOVE][AR_FORMS_UNICODE] ||
+        arCharacter == Ar_AlphabetAllLetters[AR_ALIF_HAMZA_BELOW][AR_FORMS_UNICODE] ||
+        arCharacter == Ar_AlphabetAllLetters[AR_DAAL][AR_FORMS_UNICODE] ||
+        arCharacter == Ar_AlphabetAllLetters[AR_THAAL][AR_FORMS_UNICODE] ||
+        arCharacter == Ar_AlphabetAllLetters[AR_REH][AR_FORMS_UNICODE] ||
+        arCharacter == Ar_AlphabetAllLetters[AR_ZAIN][AR_FORMS_UNICODE] ||
+        arCharacter == Ar_AlphabetAllLetters[AR_EXT_FA_JEH][AR_FORMS_UNICODE] ||
+        arCharacter == Ar_AlphabetAllLetters[AR_WAW][AR_FORMS_UNICODE] ||
+        arCharacter == Ar_AlphabetAllLetters[AR_ALIF_MAKSURA][AR_FORMS_UNICODE];
 }
 
 size_t RTLScript::FindARCharIndex(const std::string& arCharacter)
 {
-    for (int i = 0; i < Ar_AlphabetAllLetters.size(); i++)
+    for (int i = 0; i < Ar_AlphabetAllLettersLeanth; i++)
     {
-        if (arCharacter == Ar_AlphabetAllLetters[i][Ar_Forms_Unicode] ||
-            arCharacter == Ar_AlphabetAllLetters[i][Ar_Forms_Isolated] ||
-            arCharacter == Ar_AlphabetAllLetters[i][Ar_Forms_Beginner] ||
-            arCharacter == Ar_AlphabetAllLetters[i][Ar_Forms_Medium] ||
-            arCharacter == Ar_AlphabetAllLetters[i][Ar_Forms_Final])
+        if (arCharacter == Ar_AlphabetAllLetters[i][AR_FORMS_UNICODE] ||
+            arCharacter == Ar_AlphabetAllLetters[i][AR_FORMS_ISOLATED] ||
+            arCharacter == Ar_AlphabetAllLetters[i][AR_FORMS_BEGINNER] ||
+            arCharacter == Ar_AlphabetAllLetters[i][AR_FORMS_MEDIUM] ||
+            arCharacter == Ar_AlphabetAllLetters[i][AR_FORMS_FINAL])
             return i;
         else
             continue;
     }
-    return Ar_AlphabetAllLetters.size();
+    return Ar_AlphabetAllLettersLeanth;
 }
 
 bool RTLScript::IsARChar(const std::string arCharacter)
 {
     for (auto const& arChar : Ar_AlphabetAllLetters)
     {
-        if (arCharacter == arChar[Ar_Forms_Unicode] ||
-            arCharacter == arChar[Ar_Forms_Isolated] ||
-            arCharacter == arChar[Ar_Forms_Beginner] ||
-            arCharacter == arChar[Ar_Forms_Medium] ||
-            arCharacter == arChar[Ar_Forms_Final])
+        if (arCharacter == arChar[AR_FORMS_UNICODE] ||
+            arCharacter == arChar[AR_FORMS_ISOLATED] ||
+            arCharacter == arChar[AR_FORMS_BEGINNER] ||
+            arCharacter == arChar[AR_FORMS_MEDIUM] ||
+            arCharacter == arChar[AR_FORMS_FINAL])
             return true;
         else continue;
     }
     return false;
 }
 
-bool RTLScript::CheckForARChar(const std::string& arCharacter, ArabicAlphabet checkFor)
+bool RTLScript::CheckForARChar(const std::string arCharacter, ArabicAlphabet checkFor)
 {
     for (auto const& arChar : Ar_AlphabetAllLetters)
     {
-        if (arCharacter == Ar_AlphabetAllLetters[checkFor][Ar_Forms_Unicode] ||
-            arCharacter == Ar_AlphabetAllLetters[checkFor][Ar_Forms_Isolated] ||
-            arCharacter == Ar_AlphabetAllLetters[checkFor][Ar_Forms_Beginner] ||
-            arCharacter == Ar_AlphabetAllLetters[checkFor][Ar_Forms_Medium] ||
-            arCharacter == Ar_AlphabetAllLetters[checkFor][Ar_Forms_Final])
+        if (arCharacter == Ar_AlphabetAllLetters[checkFor][AR_FORMS_UNICODE] ||
+            arCharacter == Ar_AlphabetAllLetters[checkFor][AR_FORMS_ISOLATED] ||
+            arCharacter == Ar_AlphabetAllLetters[checkFor][AR_FORMS_BEGINNER] ||
+            arCharacter == Ar_AlphabetAllLetters[checkFor][AR_FORMS_MEDIUM] ||
+            arCharacter == Ar_AlphabetAllLetters[checkFor][AR_FORMS_FINAL])
             return true;
         else continue;
     }
     return false;
 }
 
-int RTLScript::StringToCodepoint(const std::string& str)
+int RTLScript::GetCodepointFromString(const std::string str)
 {
     if (str.empty()) return -1;
 
@@ -142,7 +142,7 @@ std::vector<std::string> RTLScript::ReverseRTLText(const std::string& str)
         bool rtl = false;
         for (int j = 0; j < line.size(); j++)
         {
-            const int codepoint = StringToCodepoint(line.substr(j, 2));
+            const int codepoint = GetCodepointFromString(line.substr(j, 2));
             const bool isRTL = IsRTL(codepoint);
             const bool isSpace = std::isspace(line[j]);
             const bool isPunctOrDigitOrSpace = IsPunctOrDigit(line[j]) || isSpace;
@@ -178,15 +178,49 @@ std::vector<std::string> RTLScript::ReverseRTLText(const std::string& str)
     return reversedStr;
 }
 
-bool RTLScript::CheckForAnyTypeOfLaamAlif(const std::string& arCharacter)
+bool RTLScript::CheckForAnyTypeOfLaamAlif(const std::string arCharacter)
 {
-    if (CheckForARChar(arCharacter, Ar_LAAM_ALIF) ||
-        CheckForARChar(arCharacter, Ar_LAAM_ALIF_HAMZA_ABOVE) ||
-        CheckForARChar(arCharacter, Ar_LAAM_ALIF_HAMZA_BELOW) ||
-        CheckForARChar(arCharacter, Ar_LAAM_ALIF_MADDAH_ABOVE))
+    if (CheckForARChar(arCharacter, AR_LAAM_ALIF) || CheckForARChar(arCharacter, AR_LAAM_ALIF_HAMZA_ABOVE) ||
+        CheckForARChar(arCharacter, AR_LAAM_ALIF_HAMZA_BELOW) || CheckForARChar(arCharacter, AR_LAAM_ALIF_MADDAH_ABOVE))
         return true;
     else
         return false;
+}
+
+bool RTLScript::CheckForAnyArabicDiacritic(const std::string arCharacter)
+{
+    for (size_t i = 0; i < Ar_TashkilAllDiacriticsLeanth; i++)
+        if (arCharacter == Ar_TashkilAllDiacritics[i])
+            return true;
+    return false;
+}
+
+int RTLScript::GetPreviousCharElementIgnoringDiacritic(const std::vector<std::string> text, int element)
+{
+    const int outElement = element - 1;
+    if (outElement < 0)
+        return -1;
+    else
+    {
+        if (!CheckForAnyArabicDiacritic(text[outElement]))
+            return outElement;
+        else
+            return GetPreviousCharElementIgnoringDiacritic(text, outElement);
+    }
+}
+
+int RTLScript::GetNextCharElementIgnoringDiacritic(const std::vector<std::string> text, int element)
+{
+    const int outElement = element + 1;
+    if (outElement <= text.size() - 1)
+    {
+        if (!CheckForAnyArabicDiacritic(text[outElement]))
+            return outElement;
+        else
+            return GetNextCharElementIgnoringDiacritic(text, outElement);
+    }
+    else
+        return -1;
 }
 
 std::string RTLScript::GetARCharGlyph(const std::string& arCharacter, const std::string& prevARChar, const std::string& nextARChar)
@@ -198,52 +232,49 @@ std::string RTLScript::GetARCharGlyph(const std::string& arCharacter, const std:
 
     switch (arCharPlace)
     {
-    case Ar_Forms_Medium:
+    case AR_FORMS_MEDIUM:
         if (IsArCharBeginner(prevARChar))
         {
-            if (Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Beginner] == Ar_AlphabetAllLetters[Ar_YEH][Ar_Forms_Beginner])
-            {
-                return Ar_AlphabetAllLetters[Ar_ARABIC_YEH][Ar_Forms_Beginner];
-            }
-            return Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Beginner];
+            if (Ar_AlphabetAllLetters[arCharIndex][AR_FORMS_BEGINNER] == Ar_AlphabetAllLetters[AR_YEH][AR_FORMS_BEGINNER])
+                return Ar_AlphabetAllLetters[AR_ARABIC_YEH][AR_FORMS_BEGINNER];
+
+            return Ar_AlphabetAllLetters[arCharIndex][AR_FORMS_BEGINNER];
         }
-        if (Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Medium] == Ar_AlphabetAllLetters[Ar_YEH][Ar_Forms_Medium])
+        if (Ar_AlphabetAllLetters[arCharIndex][AR_FORMS_MEDIUM] == Ar_AlphabetAllLetters[AR_YEH][AR_FORMS_MEDIUM])
         {
-            return Ar_AlphabetAllLetters[Ar_ARABIC_YEH][Ar_Forms_Medium];
+            return Ar_AlphabetAllLetters[AR_ARABIC_YEH][AR_FORMS_MEDIUM];
         }
         if (CheckForAnyTypeOfLaamAlif(prevARChar))
-            return Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Beginner];
+            return Ar_AlphabetAllLetters[arCharIndex][AR_FORMS_BEGINNER];
         else
-            return Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Medium];
-    case Ar_Forms_Beginner:
-        if (Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Beginner] == Ar_AlphabetAllLetters[Ar_YEH][Ar_Forms_Beginner])
-        {
-            return Ar_AlphabetAllLetters[Ar_ARABIC_YEH][Ar_Forms_Beginner];
-        }
-        return Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Beginner];
-    case Ar_Forms_Final:
+            return Ar_AlphabetAllLetters[arCharIndex][AR_FORMS_MEDIUM];
+    case AR_FORMS_BEGINNER:
+        if (Ar_AlphabetAllLetters[arCharIndex][AR_FORMS_BEGINNER] == Ar_AlphabetAllLetters[AR_YEH][AR_FORMS_BEGINNER])
+            return Ar_AlphabetAllLetters[AR_ARABIC_YEH][AR_FORMS_BEGINNER];
+
+        return Ar_AlphabetAllLetters[arCharIndex][AR_FORMS_BEGINNER];
+    case AR_FORMS_FINAL:
         if (IsArCharBeginner(prevARChar))
         {
-            if (Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Isolated] == Ar_AlphabetAllLetters[Ar_YEH][Ar_Forms_Isolated])
-            {
-                return Ar_AlphabetAllLetters[Ar_ALIF_MAKSURA][Ar_Forms_Isolated];
-            }
-            return Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Isolated];
+            if (Ar_AlphabetAllLetters[arCharIndex][AR_FORMS_ISOLATED] == Ar_AlphabetAllLetters[AR_YEH][AR_FORMS_ISOLATED])
+                return Ar_AlphabetAllLetters[AR_ALIF_MAKSURA][AR_FORMS_ISOLATED];
+
+            return Ar_AlphabetAllLetters[arCharIndex][AR_FORMS_ISOLATED];
         }
-        if (Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Final] == Ar_AlphabetAllLetters[Ar_YEH][Ar_Forms_Final])
+        if (Ar_AlphabetAllLetters[arCharIndex][AR_FORMS_FINAL] == Ar_AlphabetAllLetters[AR_YEH][AR_FORMS_FINAL])
         {
-            return Ar_AlphabetAllLetters[Ar_ALIF_MAKSURA][Ar_Forms_Final];
+            return Ar_AlphabetAllLetters[AR_ALIF_MAKSURA][AR_FORMS_FINAL];
         }
         if (CheckForAnyTypeOfLaamAlif(prevARChar))
-            return Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Isolated];
+            return Ar_AlphabetAllLetters[arCharIndex][AR_FORMS_ISOLATED];
         else
-            return Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Final];
+            return Ar_AlphabetAllLetters[arCharIndex][AR_FORMS_FINAL];
     default:
-        if (Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Isolated] == Ar_AlphabetAllLetters[Ar_YEH][Ar_Forms_Isolated])
+        if (Ar_AlphabetAllLetters[arCharIndex][AR_FORMS_ISOLATED] == Ar_AlphabetAllLetters[AR_YEH][AR_FORMS_ISOLATED])
         {
-            return Ar_AlphabetAllLetters[Ar_ALIF_MAKSURA][Ar_Forms_Isolated];
+            return Ar_AlphabetAllLetters[AR_ALIF_MAKSURA][AR_FORMS_ISOLATED];
         }
-        return Ar_AlphabetAllLetters[arCharIndex][Ar_Forms_Isolated];
+        return Ar_AlphabetAllLetters[arCharIndex][AR_FORMS_ISOLATED];
     }
 }
 
@@ -299,9 +330,9 @@ std::string RTLScript::ConvertToFixed(const std::string& text, RTLScriptConverte
         if (properties->EnableSpecialWordAllahForm)
             if (i < reversed_text.size() - 3)
                 // ﷲ
-                if (CheckForARChar(reversed_text[i], Ar_HA) && CheckForARChar(reversed_text[elementPlus1], Ar_LAAM) && CheckForARChar(reversed_text[i + 2], Ar_LAAM) && CheckForARChar(reversed_text[i + 3], Ar_ALIF))
+                if (CheckForARChar(reversed_text[i], AR_HA) && CheckForARChar(reversed_text[elementPlus1], AR_LAAM) && CheckForARChar(reversed_text[i + 2], AR_LAAM) && CheckForARChar(reversed_text[i + 3], AR_ALIF))
                 {
-                    reversed_text[i] = Ar_AlphabetAllLetters[Ar_Allah][Ar_Forms_Unicode];
+                    reversed_text[i] = Ar_AlphabetAllLetters[AR_ALLAH][AR_FORMS_UNICODE];
                     reversed_text.erase(reversed_text.begin() + elementPlus1, reversed_text.begin() + i + 4);
                 }
 
@@ -309,30 +340,30 @@ std::string RTLScript::ConvertToFixed(const std::string& text, RTLScriptConverte
             if (i < reversed_text.size() - 1)
             {
                 // لا
-                if (CheckForARChar(reversed_text[i], Ar_ALIF) && CheckForARChar(reversed_text[elementPlus1], Ar_LAAM))
+                if (CheckForARChar(reversed_text[i], AR_ALIF) && CheckForARChar(reversed_text[elementPlus1], AR_LAAM))
                 {
-                    reversed_text[i] = Ar_AlphabetAllLetters[Ar_LAAM_ALIF][Ar_Forms_Unicode];
+                    reversed_text[i] = Ar_AlphabetAllLetters[AR_LAAM_ALIF][AR_FORMS_UNICODE];
                     reversed_text.erase(reversed_text.begin() + elementPlus1);
                 }
 
                 // لأ
-                if (CheckForARChar(reversed_text[i], Ar_ALIF_HAMZA_ABOVE) && CheckForARChar(reversed_text[elementPlus1], Ar_LAAM))
+                if (CheckForARChar(reversed_text[i], AR_ALIF_HAMZA_ABOVE) && CheckForARChar(reversed_text[elementPlus1], AR_LAAM))
                 {
-                    reversed_text[i] = Ar_AlphabetAllLetters[Ar_LAAM_ALIF_HAMZA_ABOVE][Ar_Forms_Unicode];
+                    reversed_text[i] = Ar_AlphabetAllLetters[AR_LAAM_ALIF_HAMZA_ABOVE][AR_FORMS_UNICODE];
                     reversed_text.erase(reversed_text.begin() + elementPlus1);
                 }
 
                 // لإ
-                if (CheckForARChar(reversed_text[i], Ar_ALIF_HAMZA_BELOW) && CheckForARChar(reversed_text[elementPlus1], Ar_LAAM))
+                if (CheckForARChar(reversed_text[i], AR_ALIF_HAMZA_BELOW) && CheckForARChar(reversed_text[elementPlus1], AR_LAAM))
                 {
-                    reversed_text[i] = Ar_AlphabetAllLetters[Ar_LAAM_ALIF_HAMZA_BELOW][Ar_Forms_Unicode];
+                    reversed_text[i] = Ar_AlphabetAllLetters[AR_LAAM_ALIF_HAMZA_BELOW][AR_FORMS_UNICODE];
                     reversed_text.erase(reversed_text.begin() + elementPlus1);
                 }
 
                 // لآ
-                if (CheckForARChar(reversed_text[i], Ar_ALIF_MADDAH_ABOVE) && CheckForARChar(reversed_text[elementPlus1], Ar_LAAM))
+                if (CheckForARChar(reversed_text[i], AR_ALIF_MADDAH_ABOVE) && CheckForARChar(reversed_text[elementPlus1], AR_LAAM))
                 {
-                    reversed_text[i] = Ar_AlphabetAllLetters[Ar_LAAM_ALIF_MADDAH_ABOVE][Ar_Forms_Unicode];
+                    reversed_text[i] = Ar_AlphabetAllLetters[AR_LAAM_ALIF_MADDAH_ABOVE][AR_FORMS_UNICODE];
                     reversed_text.erase(reversed_text.begin() + elementPlus1);
                 }
             }
@@ -349,27 +380,27 @@ std::string RTLScript::ConvertToFixed(const std::string& text, RTLScriptConverte
                 continue;
             }
 
-            const int elementMinus1 = i - 1;
-            if (elementMinus1 < 0)
-                previousArChar = "!AR"; // !AR is to mark that the char is not Arabic.
+            const int elementMinus1 = GetPreviousCharElementIgnoringDiacritic(reversed_text, i), elementPlus1 = GetNextCharElementIgnoringDiacritic(reversed_text, i);
+
+            if (elementMinus1 == -1)
+                previousArChar = RTLSCRIPT_NOT_AR_CHAR; // !AR is to mark that the char is not Arabic.
             else
             {
                 if (IsARChar(reversed_text[elementMinus1]))
                     previousArChar = reversed_text[elementMinus1];
                 else
-                    previousArChar = "!AR";
+                    previousArChar = RTLSCRIPT_NOT_AR_CHAR;
             }
 
-            const int elementPlus1 = i + 1;
-            if (elementPlus1 <= (reversedTextSize - 1))
+            if (elementPlus1 == -1)
+                nextArChar = RTLSCRIPT_NOT_AR_CHAR;
+            else
             {
                 if (IsARChar(reversed_text[elementPlus1]))
                     nextArChar = reversed_text[elementPlus1];
                 else
-                    nextArChar = "!AR";
+                    nextArChar = RTLSCRIPT_NOT_AR_CHAR;
             }
-            else
-                nextArChar = "!AR";
 
             std::string arGlyph = GetARCharGlyph(reversed_text[i], nextArChar, previousArChar);
             convertedText.append(arGlyph);
