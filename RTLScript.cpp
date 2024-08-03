@@ -323,7 +323,7 @@ std::string RTLScript::ConvertToFixed(const std::string& text, RTLScriptConverte
     std::vector<std::string> reversed_text = ReverseRTLText(text);
     std::string convertedText, previousArChar, nextArChar;
 
-    // Change chars to they currect form for exemple: ل + ا = لا
+    // Change chars to they current form for example: ل + ا = لا
     for (int i = 0; i < reversed_text.size(); i++)
     {
         const int elementPlus1 = i + 1;
