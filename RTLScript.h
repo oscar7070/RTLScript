@@ -8,12 +8,12 @@
 #define RTLSCRIPT_H
 
 // RTLScript version.
-constexpr auto RTLSCRIPT_VERSION = "1.5";
+constexpr auto RTLSCRIPT_VERSION = "1.6";
 // RTLScript version number.
-constexpr auto RTLSCRIPT_VERSION_NUM = 150;
+constexpr auto RTLSCRIPT_VERSION_NUM = 160;
 constexpr auto RTLSCRIPT_STABLE_RELEASE_NAME = "STABLE", RTLSCRIPT_PREVIEW_RELEASE_NAME = "PREVIEW", RTLSCRIPT_BETA_RELEASE_NAME = "BETA";
 // RTLScript release type for exemple: STABLE, PREVIEW, BETA.
-constexpr auto RTLSCRIPT_RELEASE_TYPE = RTLSCRIPT_STABLE_RELEASE_NAME;
+constexpr auto RTLSCRIPT_RELEASE_TYPE = RTLSCRIPT_BETA_RELEASE_NAME; //BETA
 
 // Properties for ConvertToFixed() function.
 struct RTLScriptConverterProperties
@@ -25,14 +25,6 @@ public:
     // Enables: لا
     bool EnableJointLaamAlifForm = true;
     //bool ReverseRTL = true;
-
-    //RTLScriptConverterProperties(bool joiningArabicLetters = true, bool enableSpecialWordAllahForm = true, bool enableJointLaamAlifForm = true, bool reverseRTL = true)
-    //{
-    //    JoiningArabicLetters = joiningArabicLetters;
-    //    EnableSpecialWordAllahForm = enableSpecialWordAllahForm;
-    //    EnableJointLaamAlifForm = enableJointLaamAlifForm;
-    //    //ReverseRTL = reverseRTL;
-    //}
 };
 
 const RTLScriptConverterProperties DefaultConverterProperties{ true, true, true }; //, true };
@@ -53,7 +45,7 @@ enum ArabicTashkil
     AR_SMALL_HIGH_DOTLESS_HEAD_OF_KHA,// ۡ
 };
 
-enum ArabicTashkeel_FarsiNames
+enum ArabicTashkil_FarsiNames
 {
     FA_TASHKEEL_FATHEH = AR_TASHKIL_FATHA,
     FA_TASHKEEL_TANVIN_NASB = AR_TASHKIL_FATHATAN,
@@ -316,17 +308,17 @@ namespace RTLScript
     /// <param name="prevARChar">Previous character, to check if its connected to arCharacter or not.</param>
     /// <param name="nextARChar">Next character, to check if its connected to arCharacter or not.</param>
     /// <returns>Returns an int in type of a char. Possible values: 0- no connection, 1- connected from behind, 2- connected from front, 3- connected from both side.</returns>
-    ArabicLetterForm GetARCharPlace(const std::string& arCharacter, const std::string& prevARChar, const std::string& nextARChar);
+    ArabicLetterForm GetARCharPlace(const std::string prevARChar, const std::string nextARChar);
 
     /// <summary>Check if given character is a Arabic letter in beginner form or not.</summary>
     /// <param name="arCharacter">Character you want to check.</param>
     /// <returns>Returns a bool value. Possible values: true, false.</returns>
-    bool IsArCharBeginner(const std::string& arCharacter);
+    bool IsArCharBeginner(const std::string arCharacter);
 
     /// <summary>Find vector index of the give character in Ar_AlphabetsAllForms vector</summary>
     /// <param name="arCharacter">Character you want get its index.</param>
     /// <returns>Returns an int in type of a char. Possible values: (ِِAr_AlphabetsAllForms array size).</returns>
-    size_t FindARCharIndex(const std::string& arCharacter);
+    size_t FindARCharIndex(const std::string arCharacter);
 
     /// <summary>Check if given character is a Arabic letter or not.</summary>
     /// <param name="arCharacter">Character you want to check.</param>
@@ -356,7 +348,7 @@ namespace RTLScript
     /// <summary>Reverses Arabic/Farsi/Hebrew/Urdu... string and returns a vector of std::strings, each of them containing RTL letters with different byte counts.</summary>
     /// <param name="str">Arabic/Farsi/Hebrew/Urdu... string.</param>
     /// <returns>Returns a vector of std::strings.</returns>
-    std::vector<std::string> ReverseRTLText(const std::string& str);
+    std::vector<std::string> ReverseRTLText(const std::string str);
 
     /// <summary>Checks if the Arabic character is represents any type of LaamAlif.</summary>
     /// <param name="str">A char.</param>
@@ -383,7 +375,7 @@ namespace RTLScript
     /// <param name="prevARChar">Previous character, to check if its connected to arCcharacter or not.</param>
     /// <param name="nextARChar">Next character, to check if its connected to arCharacter or not.</param>
     /// <returns>Returns a std::string.</returns>
-    std::string GetARCharGlyph(const std::string& arCharacter, const std::string& prevARChar, const std::string& nextARChar);
+    std::string GetARCharGlyph(const std::string arCharacter, const std::string prevARChar, const std::string nextARChar);
 
     //void CheckForARWordAndReplace(const std::vector<ArabicAlphabets> checkFor, const std::string replaceTo, std::vector<std::string>& text);
 
@@ -391,7 +383,7 @@ namespace RTLScript
     /// <param name="text">Arabic/Farsi/Urdu/Hebrew... text.</param>
     /// <returns>Returns a std::string. Fixed Arabic/Farsi/Urdu/Hebrew... string</returns>
     /// <param name="properties">Properties for the converter. if NULL will use default properties.</param>
-    std::string ConvertToFixed(const std::string& text, RTLScriptConverterProperties* properties = NULL);
+    std::string ConvertToFixed(const std::string text, RTLScriptConverterProperties* properties = NULL);
 
     /// <summary>Converts a Arabic/Farsi/Urdu/Hebrew... string to a normal, fixed, not-reversed string for using it in you program :).</summary>
     /// <param name="text">Arabic/Farsi/Urdu/Hebrew... text.</param>

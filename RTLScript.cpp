@@ -2,7 +2,7 @@
 #include "RTLScript.h"
 #include <sstream>
 
-ArabicLetterForm RTLScript::GetARCharPlace(const std::string& arCharacter, const std::string& prevARChar, const std::string& nextARChar)
+ArabicLetterForm RTLScript::GetARCharPlace(const std::string prevARChar, const std::string nextARChar)
 {
     bool in_previous = false, in_next = false;
     for (auto const& arChar : Ar_AlphabetAllLetters)
@@ -23,7 +23,7 @@ ArabicLetterForm RTLScript::GetARCharPlace(const std::string& arCharacter, const
         return AR_FORMS_ISOLATED;
 }
 
-bool RTLScript::IsArCharBeginner(const std::string& arCharacter)
+bool RTLScript::IsArCharBeginner(const std::string arCharacter)
 {
     return arCharacter == Ar_AlphabetAllLetters[AR_ALIF_HAMZA_ABOVE][AR_FORMS_UNICODE] ||
         arCharacter == Ar_AlphabetAllLetters[AR_ALIF_MADDAH_ABOVE][AR_FORMS_UNICODE] ||
@@ -40,7 +40,7 @@ bool RTLScript::IsArCharBeginner(const std::string& arCharacter)
         arCharacter == Ar_AlphabetAllLetters[AR_ALIF_MAKSURA][AR_FORMS_UNICODE];
 }
 
-size_t RTLScript::FindARCharIndex(const std::string& arCharacter)
+size_t RTLScript::FindARCharIndex(const std::string arCharacter)
 {
     for (int i = 0; i < Ar_AlphabetAllLettersLeanth; i++)
     {
@@ -122,7 +122,7 @@ bool RTLScript::IsPunctOrDigit(const int c)
     return std::ispunct(c) || std::isdigit(c);
 }
 
-std::vector<std::string> RTLScript::ReverseRTLText(const std::string& str)
+std::vector<std::string> RTLScript::ReverseRTLText(const std::string str)
 {
     std::vector<std::string> reversedStr;
 
@@ -223,11 +223,11 @@ int RTLScript::GetNextCharElementIgnoringDiacritic(const std::vector<std::string
         return -1;
 }
 
-std::string RTLScript::GetARCharGlyph(const std::string& arCharacter, const std::string& prevARChar, const std::string& nextARChar)
+std::string RTLScript::GetARCharGlyph(const std::string arCharacter, const std::string prevARChar, const std::string nextARChar)
 {
     if (!IsARChar(arCharacter)) return arCharacter;
 
-    const unsigned char arCharPlace = GetARCharPlace(arCharacter, prevARChar, nextARChar);
+    const unsigned char arCharPlace = GetARCharPlace(prevARChar, nextARChar);
     const size_t arCharIndex = FindARCharIndex(arCharacter);
 
     switch (arCharPlace)
@@ -315,7 +315,7 @@ std::string RTLScript::GetARCharGlyph(const std::string& arCharacter, const std:
 //    }
 //}
 
-std::string RTLScript::ConvertToFixed(const std::string& text, RTLScriptConverterProperties* properties)
+std::string RTLScript::ConvertToFixed(const std::string text, RTLScriptConverterProperties* properties)
 {
     if (properties == NULL)
         properties = const_cast<RTLScriptConverterProperties*>(&DefaultConverterProperties);
