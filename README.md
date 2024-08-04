@@ -1,7 +1,7 @@
 ## RTLScript
-A simple library for Arabic, Hebrew, Farsi, Urdu and etc. for modern C++ standards.
+A simple tiny library for Arabic, Hebrew, Farsi, Urdu and etc. for modern C++ standards.
 
-RTLScript is a fork of FarsiType: https://github.com/AmyrAhmady/FarsiType
+**RTLScript is a fork of FarsiType: https://github.com/AmyrAhmady/FarsiType**
 
 *Just a logo that i made for fun i Love to make a logos for my projects (:*
 
