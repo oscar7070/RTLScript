@@ -7,12 +7,14 @@
 #ifndef RTLSCRIPT_H
 #define RTLSCRIPT_H
 
+// RTLScript name.
+constexpr auto RTLSCRIPT_NAME = "RTLScript";
 // RTLScript version.
-constexpr auto RTLSCRIPT_VERSION = "1.6";
+constexpr auto RTLSCRIPT_VERSION = "1.6.1";
 // RTLScript version number.
-constexpr auto RTLSCRIPT_VERSION_NUM = 160;
+constexpr auto RTLSCRIPT_VERSION_NUM = 161;
 constexpr auto RTLSCRIPT_STABLE_RELEASE_NAME = "STABLE", RTLSCRIPT_PREVIEW_RELEASE_NAME = "PREVIEW", RTLSCRIPT_BETA_RELEASE_NAME = "BETA";
-// RTLScript release type for exemple: STABLE, PREVIEW, BETA.
+// RTLScript release type for example: STABLE, PREVIEW, BETA.
 constexpr auto RTLSCRIPT_RELEASE_TYPE = RTLSCRIPT_BETA_RELEASE_NAME; //BETA
 
 // Properties for ConvertToFixed() function.
@@ -25,9 +27,18 @@ public:
     // Enables: لا
     bool EnableJointLaamAlifForm = true;
     //bool ReverseRTL = true;
+
+    RTLScriptConverterProperties() {}
+
+    RTLScriptConverterProperties(bool joiningArabicLetters, bool enableSpecialWordAllahForm, bool enableJointLaamAlifForm)
+    {
+        JoiningArabicLetters = joiningArabicLetters;
+        EnableSpecialWordAllahForm = enableSpecialWordAllahForm;
+        EnableJointLaamAlifForm = enableJointLaamAlifForm;
+    }
 };
 
-const RTLScriptConverterProperties DefaultConverterProperties{ true, true, true }; //, true };
+const RTLScriptConverterProperties DefaultConverterProperties = RTLScriptConverterProperties(true, true, true);
 
 enum ArabicTashkil
 {
@@ -61,8 +72,8 @@ enum ArabicTashkil_FarsiNames
     FA_TASHKEEL_KHA = AR_SMALL_HIGH_DOTLESS_HEAD_OF_KHA,
 };
 
-const size_t Ar_TashkilAllDiacriticsLeanth = 10;
-const std::string Ar_TashkilAllDiacritics[Ar_TashkilAllDiacriticsLeanth] =
+const size_t Ar_TashkilAllDiacriticsLength = 10;
+const std::string Ar_TashkilAllDiacritics[Ar_TashkilAllDiacriticsLength] =
 {
     {"َ"}, // AR_TASHKIL_FATHA,      // اَ
     {"ً"}, // AR_TASHKIL_FATHATAN,   // اً
@@ -172,8 +183,8 @@ enum ArabicLetterForm
 
 constexpr const char* RTLSCRIPT_NOT_AR_CHAR = "!AR";
 
-const size_t Ar_AlphabetAllLettersLeanth = 55;
-const std::string Ar_AlphabetAllLetters[Ar_AlphabetAllLettersLeanth][5] =
+const size_t Ar_AlphabetAllLettersLength = 55;
+const std::string Ar_AlphabetAllLetters[Ar_AlphabetAllLettersLength][5] =
 {
     // Arabic
     {"\u0623", "\ufe83", "\u0623", "\ufe84", "\ufe84"}, // AR_ALIF_HAMZA_ABOVE, // أ
@@ -269,8 +280,8 @@ enum HebrewAlphabet
     HE_TAV, // ת
 };
 
-const size_t He_AlphabetAllLettersLeanth = 27;
-const std::string He_AlphabetAllLetters[He_AlphabetAllLettersLeanth] =
+const size_t He_AlphabetAllLettersLength = 27;
+const std::string He_AlphabetAllLetters[He_AlphabetAllLettersLength] =
 {
     "א", // HE_ALEF, // א
     "ב", // HE_BET, // ב
@@ -350,12 +361,17 @@ namespace RTLScript
     /// <returns>Returns a vector of std::strings.</returns>
     std::vector<std::string> ReverseRTLText(const std::string str);
 
+    /// <summary>Reverses Arabic/Farsi/Hebrew/Urdu... line and returns out a vector of std::strings, each of them containing RTL letters with different byte counts.</summary>
+    /// <param name="str">Arabic/Farsi/Hebrew/Urdu... line.</param>
+    /// <returns>Returns out a vector of std::strings.</returns>
+    void ReverseRTLLine(std::vector<std::string>& reversedString, const std::string line, std::vector<std::string>& temp, bool& rtl);
+
     /// <summary>Checks if the Arabic character is represents any type of LaamAlif.</summary>
     /// <param name="str">A char.</param>
     /// <returns>Returns a bool value. Possible values: true, false.</returns>
     bool CheckForAnyTypeOfLaamAlif(const std::string arCharacter);
 
-    /// <summary>Checks if the Arabic character is represents any type of arabic diacritic.</summary>
+    /// <summary>Checks if the Arabic character is represents any type of Arabic diacritic.</summary>
     /// <param name="str">A char.</param>
     /// <returns>Returns a bool value. Possible values: true, false.</returns>
     bool CheckForAnyArabicDiacritic(const std::string arCharacter);
@@ -372,7 +388,7 @@ namespace RTLScript
 
     /// <summary>Get correct unicode of Arabic/Farsi/Urdu letter depending on its position, previous, and next letters.</summary>
     /// <param name="arCharacter">Character you want to check.</param>
-    /// <param name="prevARChar">Previous character, to check if its connected to arCcharacter or not.</param>
+    /// <param name="prevARChar">Previous character, to check if its connected to ar char or not.</param>
     /// <param name="nextARChar">Next character, to check if its connected to arCharacter or not.</param>
     /// <returns>Returns a std::string.</returns>
     std::string GetARCharGlyph(const std::string arCharacter, const std::string prevARChar, const std::string nextARChar);
