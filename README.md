@@ -33,7 +33,7 @@ RTLScript is very easy to use:
 #define RTL_SCRIPT_RAII_ENABLE_FARSI  // To enable Farsi feature.
 // No need to enable Arabic feature, it's enabled by default.
 #include <RTLScript/RTLScript-RAII.hpp> // Recommended to use the RAII header, but it's not necessary.
-#include <iostream> // For std::println for C++23
+#include <iostream>
 
 #include "RTLScript/Langs/Hebrew.hpp"
 
