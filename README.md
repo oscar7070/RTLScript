@@ -1,4 +1,4 @@
-## RTLScript
+## RTLScript (2.0 initial beta currently not very tested maybe not working as expected)
 A simple tiny library for Arabic, Hebrew, Farsi, Urdu and etc. for modern CXX standards.
 
 **RTLScript is a fork of FarsiType: https://github.com/AmyrAhmady/FarsiType**
