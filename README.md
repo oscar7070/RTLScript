@@ -35,8 +35,6 @@ RTLScript is very easy to use:
 #include <RTLScript/RTLScript-RAII.hpp> // Recommended to use the RAII header, but it's not necessary.
 #include <iostream>
 
-#include "RTLScript/Langs/Hebrew.hpp"
-
 void main()
 {
 	const RTLScript::Raii::Instance instance; // No need to manually clean up anything, the RAII instance will handle it.
