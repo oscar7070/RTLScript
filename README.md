@@ -33,7 +33,6 @@ RTLScript is very easy to use:
 #define RTL_SCRIPT_RAII_ENABLE_FARSI  // To enable Farsi feature.
 // No need to enable Arabic feature, it's enabled by default.
 #include <RTLScript/RTLScript-RAII.hpp> // Recommended to use the RAII header, but it's not necessary.
-#include <iostream>
 
 void main()
 {
@@ -46,7 +45,7 @@ void main()
 	const RTLScript::UString text = L"أنا أحب الأناناس"; // Need to pass a wide string.
 	const auto fixedText = instance.ConvertToFixed(text); // Convert to fixed text.
 
-	std::wcout << fixedText << '\n'; // Print the result.
+	// Now do with the result what you want!
 }
 ```
 
